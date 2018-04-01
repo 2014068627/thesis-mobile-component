@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Lights and Sockets</string>
     <string name="forgot"><u><b><i>Forgot password?</i></b></u></string>
+    <string name="nav_activity">ACTIVITY</string>
+    <string name="nav_things">THINGS</string>
+    <string name="nav_profile">PROFILE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
