@@ -6,4 +6,8 @@
     <color name="peach">#dbc3c0</color>
     <color name="maroon">#9c382d</color>
     <color name="white">#ffffff</color>
+    <color name="gray">#847878</color>
+    <color name="lineColor">#E18942</color>
+    <color name="dotColor">#B95835</color>
+    <color name="TextGraphColor">#3D3242</color>
 </resources>
