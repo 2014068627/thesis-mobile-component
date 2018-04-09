@@ -17,6 +17,27 @@
             android:layout_height="wrap_content"
             tools:context="com.ust.thesis.lightsandsockets.SocketActivity">
 
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_above="@+id/main_nav"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/maroon"></FrameLayout>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="154dp"
+                android:layout_height="115dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="28dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+                app:srcCompat="@drawable/plug" />
+
             <TextView
                 android:id="@+id/socket_number"
                 android:layout_width="wrap_content"
@@ -26,33 +47,21 @@
                 android:layout_marginTop="20dp"
                 android:text="TextView"
                 android:textColor="#9c382d"
-                android:textSize="25sp"
+                android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="154dp"
-                android:layout_height="115dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="72dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/plug" />
-
             <Switch
                 android:id="@+id/switch1"
-                android:layout_width="46dp"
-                android:layout_height="53dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="24dp"
-                android:scaleX="4"
-                android:scaleY="4"
-                android:textSize="50dp"
+                android:layout_width="46sp"
+                android:layout_height="53sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginStart="15sp"
+                android:layout_marginTop="24sp"
+                android:scaleX="3"
+                android:scaleY="3"
+                android:textSize="50sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/identifiedDevice" />
@@ -72,24 +81,73 @@
             <Button
                 android:id="@+id/scheduleButton"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="56dp"
+                android:layout_height="68dp"
+                android:layout_marginTop="40dp"
                 android:background="#9c382d"
                 android:text="SCHEDULE"
                 android:textColor="@color/peach"
-                android:textSize="23sp"
+                android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
-            <FrameLayout
-                android:id="@+id/graph_frame"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:layout_above="@+id/main_nav"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="528dp"
+                android:layout_height="43dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="#9c382d"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
+
+                <Button
+                    android:id="@+id/DailyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="62dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:text="DAILY"
+                    android:textColor="@color/maroon" />
+
+                <Button
+                    android:id="@+id/WeeklyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_marginRight="62dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:background="@color/maroon"
+                    android:text="WEEKLY"
+                    android:textColor="@color/peach" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/FragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="498dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_above="@+id/main_nav"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/scheduleButton">

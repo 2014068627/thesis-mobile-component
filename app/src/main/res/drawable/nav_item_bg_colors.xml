@@ -1,0 +1,7 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:color="@color/maroon"
+        app:itemBackground="@color/peach"
+        android:state_checked="true" />
+    <item android:color="@color/white"
+        app:itemBackground="@color/maroon" />
+</selector>
