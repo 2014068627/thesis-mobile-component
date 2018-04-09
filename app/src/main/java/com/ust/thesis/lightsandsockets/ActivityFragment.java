@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.ust.thesis.lightsandsockets.objects.RecentActivities;
 import com.ust.thesis.lightsandsockets.objects.RecentActivitiesAdapter;
@@ -37,7 +36,7 @@ public class ActivityFragment extends Fragment {
         lv = (ListView) view.findViewById(R.id.listView);
         mActivityList = new ArrayList<>();
 
-        mActivityList.add(new RecentActivities(1, "Schedule socket 1 to turn off", "2/2/2018", "user"));
+        mActivityList.add(new RecentActivities(1, "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making", "2/2/2018", "user"));
         mActivityList.add(new RecentActivities(1, "Schedule socket 2 to turn off", "3/3/2018", "apple"));
         mActivityList.add(new RecentActivities(1, "Schedule socket 3 to turn off", "4/4/2018", "orange"));
         mActivityList.add(new RecentActivities(1, "Schedule socket 4 to turn off", "5/5/2018", "something"));
