@@ -41,6 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         toForgotPassword();
     }
 
+    @Override
+    public void onBackPressed(){
+
+    }
     /**
      * function that initializes
      */
@@ -73,13 +77,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = usernameEdit.getText().toString();
                 String password = passwordEdit.getText().toString();
-                String url = getString(R.string.apiserver) + "api/powerboard/login";
+//                String url = getString(R.string.apiserver) + "api/powerboard/login";
+                String url = getResources().getString(R.string.apiserver) + "api/powerboard/login";
                 HashMap login_cred = new HashMap();
                 login_cred.put("username", username);
                 login_cred.put("password", password);
+                loginBttn.setEnabled(false);
                 loginRequest(url, login_cred);
-
-
+                loginBttn.setEnabled(true);
 
             }
         });
@@ -101,9 +106,19 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject user = response.getJSONObject("user");
                         String id = user.getString("id");
                         String username = user.getString("username");
-                        Toast.makeText(appContext,user.toString(),Toast.LENGTH_SHORT).show();
+
+
+                        //session to store user id and username
                         LSession session = new LSession(id, username);
                         if(session.setSession(appContext));
+
+                        //clear all text fields
+                        usernameEdit.setText("");
+                        passwordEdit.setText("");
+                        usernameEdit.requestFocus();
+                        passwordEdit.requestFocus();
+
+                        //intent to go to next session
                         Intent myIntent = new Intent(LoginActivity.this, fragmentContainer.class);
                         startActivity(myIntent);
                     }else{

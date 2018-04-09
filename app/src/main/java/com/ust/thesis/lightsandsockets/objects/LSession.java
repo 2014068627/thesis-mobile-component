@@ -10,25 +10,36 @@ public class LSession {
     private String username;
     private String id;
 
+    /**
+     * public constructors
+     */
     public LSession(String id, String username){
         this.id = id;
         this.username = username;
     }
+    public LSession(){}
+
+    /**
+     * function to add user id and user username to shared preference
+     */
     public boolean setSession(Context context){
         try{
             SharedPreferences spreference;
             spreference = context.getSharedPreferences(this.LPreferences, Context.MODE_PRIVATE);
             SharedPreferences.Editor edit = spreference.edit();
 
-            edit.putString(this.id, id.trim());
-            edit.putString(this.username, username.trim());
+            edit.putString(this.kid, id.trim());
+            edit.putString(this.kusername, username.trim());
             edit.apply();
             return true;
         }catch(Exception e){
             return false;
         }
-
     }
+
+    /**
+     * function to clear user session
+     */
     public boolean clearSession(Context context){
         try{
             SharedPreferences spreference;
@@ -41,12 +52,17 @@ public class LSession {
         }catch(Exception e){
             return false;
         }
-
     }
 
-    public boolean clearSession(){
-
-        return true;
+    /**
+     * function to return a string array containing user id and user username in shared preference
+     */
+    public String[] getUserSession(Context context){
+        SharedPreferences preference = context.getSharedPreferences(this.LPreferences, Context.MODE_PRIVATE);
+        String id = preference.getString(kid, "");
+        String username = preference.getString(kusername, "");
+        String[] ar = {id, username};
+        return ar;
     }
 
     /**
