@@ -1,13 +1,29 @@
 package com.ust.thesis.lightsandsockets;
 
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
+import java.util.ArrayList;
 
 public class SocketActivity extends AppCompatActivity {
 
     TextView socketNumber;
     TextView  Iappliance;
+    Button weeklyButton;
+    Button dailyButton;
+    private DailyGraphFragment DF;
+    private WeeklyGraphFragment WF;
 
     /*
     NOTE:
@@ -26,5 +42,40 @@ public class SocketActivity extends AppCompatActivity {
         socketNumber.setText(socket);
         Iappliance.setText(appliance);
 
+        //SET FRAGMENTS
+        DF = new DailyGraphFragment();
+        WF = new WeeklyGraphFragment();
+        weeklyButton = (Button) findViewById(R.id.WeeklyButton);
+        dailyButton = (Button) findViewById(R.id.DailyButton);
+
+        setFragment(DF);
+        dailyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dailyButton.setBackgroundColor(getResources().getColor(R.color.white));
+                dailyButton.setTextColor(getResources().getColor(R.color.maroon));
+                weeklyButton.setBackgroundColor(getResources().getColor(R.color.maroon));
+                weeklyButton.setTextColor(getResources().getColor(R.color.peach));
+                setFragment(DF);
+            }
+        });
+
+        weeklyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weeklyButton.setBackgroundColor(getResources().getColor(R.color.white));
+                weeklyButton.setTextColor(getResources().getColor(R.color.maroon));
+                dailyButton.setBackgroundColor(getResources().getColor(R.color.maroon));
+                dailyButton.setTextColor(getResources().getColor(R.color.peach));
+                setFragment(WF);
+            }
+        });
+
+    }
+
+    private void setFragment(Fragment fragment){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.FragmentContainer, fragment);
+        fragmentTransaction.commit();
     }
 }
