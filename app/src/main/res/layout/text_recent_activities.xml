@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/activity"
         android:layout_width="337dp"
-        android:layout_height="31dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="4dp"
