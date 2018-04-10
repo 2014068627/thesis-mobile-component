@@ -50,6 +50,10 @@ public class SocketActivity extends AppCompatActivity {
         weeklyButton = (Button) findViewById(R.id.WeeklyButton);
         dailyButton = (Button) findViewById(R.id.DailyButton);
 
+        //give bundle to fragment class
+        DF.setArguments(bundle);
+        WF.setArguments(bundle);
+
         setFragment(DF);
         dailyButton.setOnClickListener(new View.OnClickListener() {
             @Override

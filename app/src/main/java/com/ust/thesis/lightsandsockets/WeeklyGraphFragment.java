@@ -42,8 +42,8 @@ public class WeeklyGraphFragment extends Fragment {
         LineDataSet lineDataSet = new LineDataSet(entries,"Consumption");
         lineDataSet.setLineWidth(5f);
         lineDataSet.setColor(getResources().getColor(R.color.lineColor));
-        lineDataSet.setCircleColor(getResources().getColor(R.color.dotColor));
-        lineDataSet.setCircleSize(7f);
+//        lineDataSet.setCircleColor(getResources().getColor(R.color.dotColor));
+//        lineDataSet.setCircleSize(7f);
         lineDataSet.setValueTextSize(15f);
         lineDataSet.setValueTextColor(getResources().getColor(R.color.TextGraphColor));
 
