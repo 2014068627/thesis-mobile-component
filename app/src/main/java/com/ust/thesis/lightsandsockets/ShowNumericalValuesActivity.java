@@ -1,6 +1,5 @@
 package com.ust.thesis.lightsandsockets;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -9,14 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-
-import java.util.ArrayList;
-
-public class SocketActivity extends AppCompatActivity {
+public class ShowNumericalValuesActivity extends AppCompatActivity {
 
     TextView socketNumber;
     TextView  Iappliance;
@@ -26,15 +18,12 @@ public class SocketActivity extends AppCompatActivity {
     private DailyGraphFragment DF;
     private WeeklyGraphFragment WF;
 
-    /*
-    NOTE:
-        Think of a way that the device identification will sill be present in this activity. Use the string socket as the way.
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_socket);
+        setContentView(R.layout.activity_show_numerical_values);
+
         socketNumber = (TextView) findViewById(R.id.socket_number);
         Iappliance = (TextView) findViewById(R.id.identifiedDevice);
         showNV = (Button) findViewById(R.id.showNV);
@@ -72,9 +61,6 @@ public class SocketActivity extends AppCompatActivity {
                 setFragment(WF);
             }
         });
-
-        directToShowNV(showNV, socketNumber, Iappliance/*temporary*/);
-
     }
 
     private void setFragment(Fragment fragment){
@@ -83,19 +69,4 @@ public class SocketActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void directToShowNV(Button button, TextView number, TextView appliances/*temporary*/){
-        final String socket = number.getText().toString();
-        final String appliance = appliances.getText().toString();
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(SocketActivity.this, ShowNumericalValuesActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("socket", socket);
-                bundle.putString("appliance", appliance); /*temporary*/
-                myIntent.putExtras(bundle);
-                startActivity(myIntent);
-            }
-        });
-    }
 }

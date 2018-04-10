@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ust.thesis.lightsandsockets.SocketActivity">
+    tools:context="com.ust.thesis.lightsandsockets.ShowNumericalValuesActivity">
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,47 +27,19 @@
                 android:layout_alignParentStart="true"
                 android:background="@color/maroon"></FrameLayout>
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="154dp"
-                android:layout_height="115dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-                app:srcCompat="@drawable/plug" />
-
             <TextView
                 android:id="@+id/socket_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="68dp"
                 android:text="TextView"
                 android:textColor="#9c382d"
                 android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/switch1"
-                style="@style/SwitchCompatStyle"
-                android:layout_width="40sp"
-                android:layout_height="53sp"
-                android:layout_marginEnd="15sp"
-                android:layout_marginStart="15sp"
-                android:layout_marginTop="20dp"
-                android:scaleX="3.5"
-                android:scaleY="3.5"
-                android:textSize="50sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.554"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/identifiedDevice" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/identifiedDevice"
@@ -80,18 +53,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/socket_number" />
 
-            <Button
-                android:id="@+id/scheduleButton"
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginTop="40dp"
-                android:background="#9c382d"
-                android:text="SCHEDULE"
-                android:textColor="@color/peach"
-                android:textSize="30sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/switch1" />
-
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="528dp"
@@ -103,7 +64,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scheduleButton">
+                app:layout_constraintTop_toBottomOf="@+id/identifiedDevice">
 
                 <Button
                     android:id="@+id/DailyButton"
@@ -140,20 +101,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout">
             </FrameLayout>
-
-            <Button
-                android:id="@+id/showNV"
-                android:layout_width="305dp"
-                android:layout_height="38dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:text="LOAD NUMERICAL VALUES"
-                android:textColor="@color/lineColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.507"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/FragmentContainer" />
 
             <FrameLayout
                 android:layout_width="368dp"
