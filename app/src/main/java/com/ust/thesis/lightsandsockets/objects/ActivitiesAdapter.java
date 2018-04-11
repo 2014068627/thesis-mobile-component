@@ -41,9 +41,6 @@ public class ActivitiesAdapter extends BaseAdapter {
         this.listActivities = act;
     }
 
-
-
-
     @Override
     public int getCount(){
         return listActivities.size();
