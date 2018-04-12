@@ -1,6 +1,5 @@
 package com.ust.thesis.lightsandsockets;
 
-import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 
 public class fragmentContainer extends AppCompatActivity
@@ -40,7 +38,7 @@ public class fragmentContainer extends AppCompatActivity
                     case R.id.things :
                         setFragment(TF);
                         return true;
-                    case R.id.activity :
+                    case R.id.date:
                         setFragment(AF);
                         return true;
                     case R.id.profile :

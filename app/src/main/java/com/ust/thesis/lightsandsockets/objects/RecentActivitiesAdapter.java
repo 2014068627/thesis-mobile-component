@@ -42,7 +42,7 @@ public class RecentActivitiesAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = View.inflate(mContext, R.layout.text_recent_activities, null);
-        TextView activity = (TextView) view.findViewById(R.id.activity);
+        TextView activity = (TextView) view.findViewById(R.id.date);
         TextView time = (TextView) view.findViewById(R.id.time);
         TextView username = (TextView) view.findViewById(R.id.username);
         activity.setText(mActivityList.get(position).getActivity());

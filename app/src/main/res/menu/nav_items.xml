@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_lightbulb_outline_white_24dp"
         android:title="@string/nav_things" />
     <item
-        android:id="@+id/activity"
+        android:id="@+id/date"
         android:icon="@drawable/ic_history_white_24dp"
         android:title="@string/nav_activity" />
     <item
