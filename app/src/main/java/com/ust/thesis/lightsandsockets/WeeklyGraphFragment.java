@@ -56,31 +56,6 @@ public class WeeklyGraphFragment extends Fragment {
         weeklygraphRequest(url);
 
 
-//        lineChart = (LineChart) view.findViewById(R.id.graph);
-//        ArrayList<Entry> entries = new ArrayList<>();
-//        entries.add(new Entry(100f,0));
-//        entries.add(new Entry(46f,1));
-//        entries.add(new Entry(22f,2));
-//        entries.add(new Entry(12f,3));
-//        LineDataSet lineDataSet = new LineDataSet(entries,"Consumption");
-//        lineDataSet.setLineWidth(5f);
-//        lineDataSet.setColor(getResources().getColor(R.color.lineColor));
-////        lineDataSet.setCircleColor(getResources().getColor(R.color.dotColor));
-////        lineDataSet.setCircleSize(7f);
-//        lineDataSet.setValueTextSize(15f);
-//        lineDataSet.setValueTextColor(getResources().getColor(R.color.TextGraphColor));
-//
-//        ArrayList<String> theDates = new ArrayList<>();
-//        theDates.add("WEEK 1");
-//        theDates.add("WEEK 2");
-//        theDates.add("WEEK 3");
-//        theDates.add("WEEK 4");
-//
-//        LineData theData = new LineData(theDates,lineDataSet);
-//        lineChart.setData(theData);
-//        lineChart.setTouchEnabled(true);
-//        lineChart.setDragEnabled(true);
-//        lineChart.setScaleEnabled(true);
         return view;
     }
     private void initialize(View view){
