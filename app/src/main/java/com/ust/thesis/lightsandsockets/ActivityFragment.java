@@ -20,9 +20,6 @@ import com.ust.thesis.lightsandsockets.objects.LSingleton;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.List;
-
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -45,15 +42,15 @@ public class ActivityFragment extends Fragment {
         initialize(view);
 
         String url = getString(R.string.apiserver) + "api/powerboard/activities";
-        activityRequest(url, view);
+        activityRequest(url);
 
         return view;
     }
     private void initialize(View view){
-        lv = (ListView) view.findViewById(R.id.listView);
+        lv = view.findViewById(R.id.listView);
     }
 
-    private void activityRequest(String url, View view){
+    private void activityRequest(String url){
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

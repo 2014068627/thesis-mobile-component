@@ -11,7 +11,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -20,28 +19,28 @@ import com.ust.thesis.lightsandsockets.objects.LSession;
 public class fragmentContainer extends AppCompatActivity
                  implements profileFragment.OnFragmentInteractionListener{
 
-    private BottomNavigationView bttmNav;
-    private FrameLayout frameNav;
-    private thingsFragment TF;
-    private ActivityFragment AF;
-    private profileFragment PF;
+    BottomNavigationView bttmNav;
+    FrameLayout frameNav;
+    thingsFragment TF;
+    ActivityFragment AF;
+    profileFragment PF;
 
-    private Context appContext;
+    Context appContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_nav);
         appContext = getApplicationContext();
-        bttmNav = (BottomNavigationView) findViewById(R.id.main_nav);
-        frameNav = (FrameLayout) findViewById(R.id.main_frame);
+        bttmNav = findViewById(R.id.main_nav);
+        frameNav = findViewById(R.id.main_frame);
         TF = new thingsFragment();
         AF = new ActivityFragment();
         PF = new profileFragment();
 
 
-        LSession ls = new LSession();
-        final String [] ar = ls.getUserSession(appContext);
+//        LSession ls = new LSession();
+//        final String [] ar = ls.getUserSession(appContext);
 
         setFragment(TF);
         bttmNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){

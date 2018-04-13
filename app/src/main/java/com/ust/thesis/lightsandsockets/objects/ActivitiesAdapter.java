@@ -25,7 +25,7 @@ public class ActivitiesAdapter extends BaseAdapter {
 
     public ActivitiesAdapter(Context context, JSONArray json_array){
         this.context = context;
-        List<Activities> act = new ArrayList<Activities>();
+        List<Activities> act = new ArrayList<>();
         try{
             for(int i=0; i<json_array.length(); i++){
                 JSONObject jobject = json_array.getJSONObject(i);
@@ -36,7 +36,7 @@ public class ActivitiesAdapter extends BaseAdapter {
                 act.add(new Activities(id, activity, username, date));
             }
         }catch(Exception e){
-
+            System.out.println(e);
         }
         this.listActivities = act;
     }
@@ -59,9 +59,9 @@ public class ActivitiesAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         View view = View.inflate(context, R.layout.text_recent_activities, null);
-        TextView activity = (TextView) view.findViewById(R.id.activity);
-        TextView time = (TextView) view.findViewById(R.id.time);
-        TextView username = (TextView) view.findViewById(R.id.username);
+        TextView activity = view.findViewById(R.id.activity_activity);
+        TextView time = view.findViewById(R.id.time);
+        TextView username = view.findViewById(R.id.username);
         activity.setText(listActivities.get(position).getActivity());
         username.setText(listActivities.get(position).getUsername());
         time.setText(listActivities.get(position).getTime());
@@ -77,26 +77,26 @@ public class ActivitiesAdapter extends BaseAdapter {
         private String time;
         private String username;
 
-        public Activities(int id, String activity, String username, String time){
+        Activities(int id, String activity, String username, String time){
             this.id = id;
             this.activity = activity;
             this.time = time;
             this.username = username;
         }
 
-        public int getId() {
+        int getId() {
             return id;
         }
 
-        public String getActivity() {
+        String getActivity() {
             return activity;
         }
 
-        public String getTime() {
+        String getTime() {
             return time;
         }
 
-        public String getUsername() {
+        String getUsername() {
             return username;
         }
     }

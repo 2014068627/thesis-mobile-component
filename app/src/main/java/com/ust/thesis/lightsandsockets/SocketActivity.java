@@ -9,13 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-
-import java.util.ArrayList;
-
 public class SocketActivity extends AppCompatActivity {
 
     TextView socketNumber;
@@ -35,9 +28,9 @@ public class SocketActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket);
-        socketNumber = (TextView) findViewById(R.id.socket_number);
-        Iappliance = (TextView) findViewById(R.id.identifiedDevice);
-        showNV = (Button) findViewById(R.id.showNV);
+        socketNumber = findViewById(R.id.socket_number);
+        Iappliance = findViewById(R.id.identifiedDevice);
+        showNV = findViewById(R.id.showNV);
         Bundle bundle = getIntent().getExtras();
         String socket = bundle.getString("socket"); /*Contains the name of the socket currently selected"*/
         String appliance = bundle.getString("appliance"); /*Temporary device identification*/
@@ -47,8 +40,8 @@ public class SocketActivity extends AppCompatActivity {
         //SET FRAGMENTS
         DF = new DailyGraphFragment();
         WF = new WeeklyGraphFragment();
-        weeklyButton = (Button) findViewById(R.id.WeeklyButton);
-        dailyButton = (Button) findViewById(R.id.DailyButton);
+        weeklyButton = findViewById(R.id.WeeklyButton);
+        dailyButton = findViewById(R.id.DailyButton);
 
         //give bundle to fragment class
         DF.setArguments(bundle);

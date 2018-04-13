@@ -1,6 +1,5 @@
 package com.ust.thesis.lightsandsockets.objects;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -44,19 +43,11 @@ public class LGraph{
             lineDataSet.setValueTextSize(15f);
             lineDataSet.setValueTextColor(context.getResources().getColor(R.color.TextGraphColor));
 
-            LineData theData = new LineData(dates,lineDataSet);
-            return theData;
+//            LineData theData = new LineData(dates,lineDataSet);
+            return new LineData(dates,lineDataSet);
         }catch(Exception e){
             Toast.makeText(context, e.toString(),Toast.LENGTH_SHORT).show();
             return null;
         }
-    }
-
-    public JSONArray getJson_values() {
-        return json_values;
-    }
-
-    public void setJson_values(JSONArray json_values) {
-        this.json_values = json_values;
     }
 }

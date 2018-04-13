@@ -2,7 +2,6 @@ package com.ust.thesis.lightsandsockets;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,10 +44,10 @@ public class LoginActivity extends AppCompatActivity {
      * function that initializes
      */
     private void initialize(){
-        fgPasswordBttn = (Button) findViewById(R.id.fpbutton);
-        loginBttn = (Button) findViewById(R.id.login);
-        usernameEdit = (EditText) findViewById(R.id.username);
-        passwordEdit = (EditText) findViewById(R.id.password);
+        fgPasswordBttn = findViewById(R.id.fpbutton);
+        loginBttn = findViewById(R.id.login);
+        usernameEdit = findViewById(R.id.username);
+        passwordEdit = findViewById(R.id.password);
     }
 
     /**
@@ -102,7 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                         String username = user.getString("username");
                         //session to store user id and username
                         LSession session = new LSession(id, username);
-                        if(session.setSession(appContext));
+//                        if(session.setSession(appContext));
+                        session.setSession(appContext);
 
                         //clear all text fields
                         usernameEdit.setText("");

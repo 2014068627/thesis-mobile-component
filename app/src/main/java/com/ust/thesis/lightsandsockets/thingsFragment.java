@@ -17,19 +17,19 @@ import android.widget.TextView;
  */
 public class thingsFragment extends Fragment {
 
-    private ConstraintLayout light1;
-    private ConstraintLayout socket1Link;
-    private ConstraintLayout socket2Link;
-    private ConstraintLayout socket3Link;
-    private ConstraintLayout socket4Link;
-    private TextView socket1;
-    private TextView socket2;
-    private TextView socket3;
-    private TextView socket4;
-    private TextView appliance1;
-    private TextView appliance2;
-    private TextView appliance3;
-    private TextView appliance4;
+    ConstraintLayout light1;
+    ConstraintLayout socket1Link;
+    ConstraintLayout socket2Link;
+    ConstraintLayout socket3Link;
+    ConstraintLayout socket4Link;
+    TextView socket1;
+    TextView socket2;
+    TextView socket3;
+    TextView socket4;
+    TextView appliance1;
+    TextView appliance2;
+    TextView appliance3;
+    TextView appliance4;
 
     public thingsFragment() {
         // Required empty public constructor
@@ -40,19 +40,19 @@ public class thingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_things, container, false);
-        light1 = (ConstraintLayout) view.findViewById(R.id.Light1Link);
-        socket1Link = (ConstraintLayout) view.findViewById(R.id.socket1Link);
-        socket2Link = (ConstraintLayout) view.findViewById(R.id.socket2Link);
-        socket3Link = (ConstraintLayout) view.findViewById(R.id.socket3Link);
-        socket4Link = (ConstraintLayout) view.findViewById(R.id.socket4Link);
-        socket1 = (TextView) view.findViewById(R.id.socket1);
-        socket2 = (TextView) view.findViewById(R.id.socket2);
-        socket3 = (TextView) view.findViewById(R.id.socket3);
-        socket4 = (TextView) view.findViewById(R.id.socket4);
-        appliance1 = (TextView) view.findViewById(R.id.appliance1);
-        appliance2 = (TextView) view.findViewById(R.id.appliance2);
-        appliance3 = (TextView) view.findViewById(R.id.appliance3);
-        appliance4 = (TextView) view.findViewById(R.id.appliance4);
+        light1 =  view.findViewById(R.id.Light1Link);
+        socket1Link =  view.findViewById(R.id.socket1Link);
+        socket2Link =  view.findViewById(R.id.socket2Link);
+        socket3Link =  view.findViewById(R.id.socket3Link);
+        socket4Link =  view.findViewById(R.id.socket4Link);
+        socket1 = view.findViewById(R.id.socket1);
+        socket2 = view.findViewById(R.id.socket2);
+        socket3 = view.findViewById(R.id.socket3);
+        socket4 = view.findViewById(R.id.socket4);
+        appliance1 = view.findViewById(R.id.appliance1);
+        appliance2 = view.findViewById(R.id.appliance2);
+        appliance3 = view.findViewById(R.id.appliance3);
+        appliance4 = view.findViewById(R.id.appliance4);
 
         directToLight(light1);
         directToSocket(socket1Link, socket1, appliance1);

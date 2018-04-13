@@ -1,12 +1,20 @@
 package com.ust.thesis.lightsandsockets;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.ust.thesis.lightsandsockets.objects.ConsumptionNumericalValuesAdapter;
+import com.ust.thesis.lightsandsockets.objects.ConsumptionNumericalValuesAdapter.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShowNumericalValuesActivity extends AppCompatActivity {
 
@@ -15,9 +23,11 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
     Button weeklyButton;
     Button dailyButton;
     Button showNV;
-    private DailyGraphFragment DF;
-    private WeeklyGraphFragment WF;
+    Context context;
 
+    private ListView lv;
+    private ConsumptionNumericalValuesAdapter cnva;
+    private List<ConsumptionNumerical> mConsumptionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +37,22 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
         socketNumber = (TextView) findViewById(R.id.socket_number);
         Iappliance = (TextView) findViewById(R.id.identifiedDevice);
         showNV = (Button) findViewById(R.id.showNV);
+        weeklyButton = (Button) findViewById(R.id.WeeklyButton);
+        dailyButton = (Button) findViewById(R.id.DailyButton);
+        context = getApplicationContext();
         Bundle bundle = getIntent().getExtras();
         String socket = bundle.getString("socket"); /*Contains the name of the socket currently selected"*/
         String appliance = bundle.getString("appliance"); /*Temporary device identification*/
         socketNumber.setText(socket);
         Iappliance.setText(appliance);
 
-        //SET FRAGMENTS
-        DF = new DailyGraphFragment();
-        WF = new WeeklyGraphFragment();
-        weeklyButton = (Button) findViewById(R.id.WeeklyButton);
-        dailyButton = (Button) findViewById(R.id.DailyButton);
+        lv = (ListView) findViewById(R.id.listViewNumerical);
+        mConsumptionList = new ArrayList<>();
 
-        setFragment(DF);
+        mConsumptionList.add(new ConsumptionNumerical(1, "2/2/2018", "300 W"));
+        cnva = new ConsumptionNumericalValuesAdapter(context, mConsumptionList);
+        lv.setAdapter(cnva);
+
         dailyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +60,11 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
                 dailyButton.setTextColor(getResources().getColor(R.color.maroon));
                 weeklyButton.setBackgroundColor(getResources().getColor(R.color.maroon));
                 weeklyButton.setTextColor(getResources().getColor(R.color.peach));
-                setFragment(DF);
+                lv.setAdapter(null);
+                mConsumptionList.clear();
+                mConsumptionList.add(new ConsumptionNumerical(1, "2/2/2018", "300 W"));
+                cnva = new ConsumptionNumericalValuesAdapter(context, mConsumptionList);
+                lv.setAdapter(cnva);
             }
         });
 
@@ -58,15 +75,14 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
                 weeklyButton.setTextColor(getResources().getColor(R.color.maroon));
                 dailyButton.setBackgroundColor(getResources().getColor(R.color.maroon));
                 dailyButton.setTextColor(getResources().getColor(R.color.peach));
-                setFragment(WF);
+                lv.setAdapter(null);
+                mConsumptionList.clear();
+                mConsumptionList.add(new ConsumptionNumerical(1, "2/2/2018", "600 W"));
+                mConsumptionList.add(new ConsumptionNumerical(1, "2/2/2018", "900 W"));
+                cnva = new ConsumptionNumericalValuesAdapter(context, mConsumptionList);
+                lv.setAdapter(cnva);
             }
         });
-    }
-
-    private void setFragment(Fragment fragment){
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.FragmentContainer, fragment);
-        fragmentTransaction.commit();
     }
 
 }

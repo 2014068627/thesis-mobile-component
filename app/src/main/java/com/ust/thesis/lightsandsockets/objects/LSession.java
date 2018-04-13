@@ -19,7 +19,7 @@ public class LSession {
     /**
      * function to add user id and user username to shared preference
      */
-    public boolean setSession(Context context){
+    public void setSession(Context context){
         try{
             SharedPreferences spreference;
             spreference = context.getSharedPreferences(this.LPreferences, Context.MODE_PRIVATE);
@@ -28,9 +28,8 @@ public class LSession {
             edit.putString(this.kid, id.trim());
             edit.putString(this.kusername, username.trim());
             edit.apply();
-            return true;
         }catch(Exception e){
-            return false;
+            System.out.println(e);
         }
     }
 
@@ -64,13 +63,13 @@ public class LSession {
     /**
      * GETTERS
      */
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
 
     public String getId() {
         return id;
