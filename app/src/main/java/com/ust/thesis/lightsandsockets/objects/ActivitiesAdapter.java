@@ -60,8 +60,8 @@ public class ActivitiesAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
         View view = View.inflate(context, R.layout.text_recent_activities, null);
         TextView activity = view.findViewById(R.id.activity_activity);
-        TextView time = view.findViewById(R.id.time);
-        TextView username = view.findViewById(R.id.username);
+        TextView time = view.findViewById(R.id.activity_time);
+        TextView username = view.findViewById(R.id.activity_username);
         activity.setText(listActivities.get(position).getActivity());
         username.setText(listActivities.get(position).getUsername());
         time.setText(listActivities.get(position).getTime());

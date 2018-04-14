@@ -12,12 +12,13 @@ import android.widget.TextView;
 public class SocketActivity extends AppCompatActivity {
 
     TextView socketNumber;
-    TextView  Iappliance;
+    TextView  iappliance;
     Button weeklyButton;
     Button dailyButton;
     Button showNV;
-    private DailyGraphFragment DF;
-    private WeeklyGraphFragment WF;
+    Bundle bundle;
+    DailyGraphFragment DF;
+    WeeklyGraphFragment WF;
 
     /*
     NOTE:
@@ -28,20 +29,14 @@ public class SocketActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket);
-        socketNumber = findViewById(R.id.socket_number);
-        Iappliance = findViewById(R.id.identifiedDevice);
-        showNV = findViewById(R.id.showNV);
-        Bundle bundle = getIntent().getExtras();
+
+        //set variables
+        initialize();
+
         String socket = bundle.getString("socket"); /*Contains the name of the socket currently selected"*/
         String appliance = bundle.getString("appliance"); /*Temporary device identification*/
         socketNumber.setText(socket);
-        Iappliance.setText(appliance);
-
-        //SET FRAGMENTS
-        DF = new DailyGraphFragment();
-        WF = new WeeklyGraphFragment();
-        weeklyButton = findViewById(R.id.WeeklyButton);
-        dailyButton = findViewById(R.id.DailyButton);
+        iappliance.setText(appliance);
 
         //give bundle to fragment class
         DF.setArguments(bundle);
@@ -70,9 +65,26 @@ public class SocketActivity extends AppCompatActivity {
             }
         });
 
-        directToShowNV(showNV, socketNumber, Iappliance/*temporary*/);
+        directToShowNV(showNV);
 
     }
+
+    /**
+     * function to initialize design variables
+     */
+    private void initialize(){
+        socketNumber = findViewById(R.id.socket_number);
+        iappliance = findViewById(R.id.identifiedDevice);
+        showNV = findViewById(R.id.showNV);
+        bundle = getIntent().getExtras();
+
+        //SET FRAGMENTS
+        DF = new DailyGraphFragment();
+        WF = new WeeklyGraphFragment();
+        weeklyButton = findViewById(R.id.WeeklyButton);
+        dailyButton = findViewById(R.id.DailyButton);
+    }
+
 
     private void setFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -80,16 +92,11 @@ public class SocketActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void directToShowNV(Button button, TextView number, TextView appliances/*temporary*/){
-        final String socket = number.getText().toString();
-        final String appliance = appliances.getText().toString();
+    public void directToShowNV(Button button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(SocketActivity.this, ShowNumericalValuesActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("socket", socket);
-                bundle.putString("appliance", appliance); /*temporary*/
                 myIntent.putExtras(bundle);
                 startActivity(myIntent);
             }

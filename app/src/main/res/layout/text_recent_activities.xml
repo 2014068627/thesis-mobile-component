@@ -39,5 +39,5 @@
         android:layout_marginLeft="16dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_date" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_activity" />
 </android.support.constraint.ConstraintLayout>
