@@ -13,4 +13,8 @@
         <item name="trackTint">@drawable/switch_color</item>
     </style>
 
+    <style name="AppTheme.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
 </resources>
