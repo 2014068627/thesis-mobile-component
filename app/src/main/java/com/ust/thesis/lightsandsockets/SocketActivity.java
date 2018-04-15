@@ -1,12 +1,15 @@
 package com.ust.thesis.lightsandsockets;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 public class SocketActivity extends AppCompatActivity {
@@ -19,6 +22,9 @@ public class SocketActivity extends AppCompatActivity {
     Bundle bundle;
     DailyGraphFragment DF;
     WeeklyGraphFragment WF;
+
+    Button scheduleButton;
+    SwitchCompat switch_socket;
 
     /*
     NOTE:
@@ -67,6 +73,10 @@ public class SocketActivity extends AppCompatActivity {
 
         directToShowNV(showNV);
 
+        //for enabling schedule button if it is on
+        enableSwitch(switch_socket);
+        changeButtonLook(switch_socket.isChecked());
+        directToSchedule(scheduleButton);
     }
 
     /**
@@ -75,6 +85,8 @@ public class SocketActivity extends AppCompatActivity {
     private void initialize(){
         socketNumber = findViewById(R.id.socket_number);
         iappliance = findViewById(R.id.identifiedDevice);
+        scheduleButton = findViewById(R.id.scheduleButton);
+        switch_socket = findViewById(R.id.switch1);
         showNV = findViewById(R.id.showNV);
         bundle = getIntent().getExtras();
 
@@ -92,6 +104,9 @@ public class SocketActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    /**
+     * function for clicked button to show Numerical data
+     */
     public void directToShowNV(Button button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,5 +116,44 @@ public class SocketActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+    }
+
+    /**
+     * function for clicked schedule button to go to schedule page
+     */
+    public void directToSchedule(Button button){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SocketActivity.this, ScheduleActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * function to change output if switch is switched
+     */
+    public void enableSwitch(SwitchCompat sw){
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                changeButtonLook(isChecked);
+            }
+        });
+    }
+
+    public void changeButtonLook(boolean switched){
+        if(switched){
+            scheduleButton.setBackgroundColor(Color.parseColor("#9c382d"));
+            scheduleButton.setTextColor(Color.parseColor("#dbc3c0"));
+            scheduleButton.setEnabled(true);
+        }else{
+            scheduleButton.setBackgroundColor(Color.parseColor("#dbc3c0"));
+            scheduleButton.setTextColor(Color.parseColor("#ffffff"));
+            scheduleButton.setEnabled(false);
+
+        }
     }
 }
