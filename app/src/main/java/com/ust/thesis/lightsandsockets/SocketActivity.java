@@ -10,9 +10,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class SocketActivity extends AppCompatActivity {
@@ -36,7 +34,7 @@ public class SocketActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket);
-        socketNumber = (TextView) findViewById(R.id.socket_number);
+        socketNumber = (TextView) findViewById(R.id.lightTextView);
         Iappliance = (TextView) findViewById(R.id.identifiedDevice);
         showNV = (Button) findViewById(R.id.showNV);
         scheduleButton = (Button) findViewById(R.id.scheduleButton);

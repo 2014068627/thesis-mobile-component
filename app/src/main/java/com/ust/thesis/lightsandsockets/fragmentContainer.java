@@ -10,8 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-public class fragmentContainer extends AppCompatActivity
-                 implements profileFragment.OnFragmentInteractionListener{
+public class fragmentContainer extends AppCompatActivity {
 
     private BottomNavigationView bttmNav;
     private FrameLayout frameNav;
@@ -55,11 +54,6 @@ public class fragmentContainer extends AppCompatActivity
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, fragment);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri){
-
     }
 
 }

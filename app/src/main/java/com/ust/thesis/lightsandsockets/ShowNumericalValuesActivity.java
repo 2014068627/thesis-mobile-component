@@ -1,8 +1,6 @@
 package com.ust.thesis.lightsandsockets;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,7 +32,7 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_numerical_values);
 
-        socketNumber = (TextView) findViewById(R.id.socket_number);
+        socketNumber = (TextView) findViewById(R.id.lightTextView);
         Iappliance = (TextView) findViewById(R.id.identifiedDevice);
         showNV = (Button) findViewById(R.id.showNV);
         weeklyButton = (Button) findViewById(R.id.WeeklyButton);
