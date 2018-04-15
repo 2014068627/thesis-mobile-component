@@ -27,7 +27,8 @@
         <activity
             android:name=".SocketActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ShowNumericalValuesActivity"></activity>
+        <activity android:name=".ShowNumericalValuesActivity" />
+        <activity android:name=".ScheduleActivity"></activity>
     </application>
 
 </manifest>

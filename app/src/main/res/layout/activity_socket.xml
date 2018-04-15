@@ -55,16 +55,16 @@
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switch1"
                 style="@style/SwitchCompatStyle"
-                android:layout_width="40sp"
+                android:layout_width="70dp"
                 android:layout_height="53sp"
                 android:layout_marginEnd="15sp"
                 android:layout_marginStart="15sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="12dp"
                 android:scaleX="3.5"
                 android:scaleY="3.5"
                 android:textSize="50sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.554"
+                app:layout_constraintHorizontal_bias="0.387"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/identifiedDevice" />
 
@@ -138,8 +138,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-            </FrameLayout>
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"></FrameLayout>
 
             <Button
                 android:id="@+id/showNV"
@@ -163,8 +162,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/showNV">
-            </FrameLayout>
+                app:layout_constraintTop_toBottomOf="@+id/showNV"></FrameLayout>
 
 
         </android.support.constraint.ConstraintLayout>
