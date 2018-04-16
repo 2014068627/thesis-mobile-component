@@ -39,6 +39,7 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_numerical_values);
 
+
         initialize();
 
         String socket = bundle.getString("socket"); /*Contains the name of the socket currently selected"*/

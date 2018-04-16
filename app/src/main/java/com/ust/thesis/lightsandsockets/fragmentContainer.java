@@ -16,8 +16,7 @@ import android.widget.Toast;
 
 import com.ust.thesis.lightsandsockets.objects.LSession;
 
-public class fragmentContainer extends AppCompatActivity
-                 implements profileFragment.OnFragmentInteractionListener{
+public class fragmentContainer extends AppCompatActivity {
 
     BottomNavigationView bttmNav;
     FrameLayout frameNav;
@@ -71,10 +70,10 @@ public class fragmentContainer extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri){
-
-    }
+//    @Override
+//    public void onFragmentInteraction(Uri uri){
+//
+//    }
 
     /**
      * user pressed back to logout

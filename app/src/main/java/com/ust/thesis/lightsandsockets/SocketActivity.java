@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+
 public class SocketActivity extends AppCompatActivity {
 
     TextView socketNumber;

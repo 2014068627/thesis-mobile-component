@@ -28,7 +28,14 @@
             android:name=".SocketActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ShowNumericalValuesActivity" />
-        <activity android:name=".ScheduleActivity"></activity>
+        <activity android:name=".ScheduleActivity" />
+        <activity android:name=".ChangePasswordActivity" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".LightActivity" />
+        <activity android:name=".ShowLightNumericalValuesActivity"></activity>
     </application>
 
 </manifest>

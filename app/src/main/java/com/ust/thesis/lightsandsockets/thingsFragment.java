@@ -82,7 +82,7 @@ public class thingsFragment extends Fragment {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(thingsFragment.this.getActivity(), SocketActivity.class);
+                Intent myIntent = new Intent(thingsFragment.this.getActivity(), LightActivity.class);
                 startActivity(myIntent);
             }
         });

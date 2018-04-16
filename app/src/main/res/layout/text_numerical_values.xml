@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/numeric_date"
         android:layout_width="197dp"
@@ -35,5 +36,43 @@
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toEndOf="@+id/numeric_date"
         app:layout_constraintTop_toTopOf="parent" />
+=======
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:minHeight="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="15dp"
+            android:inputType="textMultiLine"
+            android:text="TextView"
+            android:textColor="@color/maroon"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/consumption"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="16dp"
+            android:gravity="right"
+            android:inputType="textMultiLine"
+            android:text="10000.467 W "
+            android:textColor="@color/maroon"
+            android:textSize="20dp" />
+    </LinearLayout>
+>>>>>>> master
 
 </android.support.constraint.ConstraintLayout>
