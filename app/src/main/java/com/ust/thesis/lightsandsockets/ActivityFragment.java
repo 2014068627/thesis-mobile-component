@@ -25,8 +25,8 @@ import org.json.JSONObject;
  */
 public class ActivityFragment extends Fragment {
 
-    private ListView lv;
-    private Context context;
+    ListView lv;
+    Context context;
 
     public ActivityFragment() {
         // Required empty public constructor

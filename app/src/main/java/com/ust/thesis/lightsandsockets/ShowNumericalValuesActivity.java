@@ -54,7 +54,7 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
     }
 
     private void initialize(){
-        socketNumber = findViewById(R.id.socket_number);
+        socketNumber = findViewById(R.id.numerical_socketnumber);
         iappliance = findViewById(R.id.identifiedDevice);
         showNV = findViewById(R.id.showNV);
         weeklyButton = findViewById(R.id.WeeklyButton);

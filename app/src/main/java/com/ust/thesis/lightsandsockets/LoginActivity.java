@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initialize(){
         fgPasswordBttn = findViewById(R.id.fpbutton);
         loginBttn = findViewById(R.id.login);
-        usernameEdit = findViewById(R.id.username);
+        usernameEdit = findViewById(R.id.profile_username);
         passwordEdit = findViewById(R.id.password);
     }
 

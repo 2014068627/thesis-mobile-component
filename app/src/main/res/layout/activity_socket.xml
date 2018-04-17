@@ -39,7 +39,7 @@
                 app:srcCompat="@drawable/plug" />
 
             <TextView
-                android:id="@+id/lightTextView"
+                android:id="@+id/socket_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -78,7 +78,7 @@
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lightTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/socket_number" />
 
             <Button
                 android:id="@+id/scheduleButton"

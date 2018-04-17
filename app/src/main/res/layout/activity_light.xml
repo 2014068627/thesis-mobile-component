@@ -40,7 +40,7 @@
                 app:srcCompat="@drawable/light_icon" />
 
             <TextView
-                android:id="@+id/lightTextView"
+                android:id="@+id/socket_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -67,7 +67,7 @@
                 android:thumb="@drawable/seek_bar_thumb_shape"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lightTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/socket_number" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -177,7 +177,7 @@
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/lightTextView"
+                app:layout_constraintStart_toEndOf="@+id/socket_number"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         </android.support.constraint.ConstraintLayout>
