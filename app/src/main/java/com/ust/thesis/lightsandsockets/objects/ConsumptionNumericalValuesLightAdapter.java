@@ -41,8 +41,8 @@ public class ConsumptionNumericalValuesLightAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = View.inflate(mContext, R.layout.text_numerical_values, null);
-        TextView date = (TextView) view.findViewById(R.id.date);
-        TextView consumption = (TextView) view.findViewById(R.id.consumption);
+        TextView date = (TextView) view.findViewById(R.id.numeric_date);
+        TextView consumption = (TextView) view.findViewById(R.id.numeric_consumption);
         consumption.setText(mConsumptionList.get(position).getConsumption());
         date.setText(mConsumptionList.get(position).getDate());
         view.setTag(mConsumptionList.get(position).getId());

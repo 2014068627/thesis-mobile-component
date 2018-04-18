@@ -26,35 +26,38 @@
         app:layout_constraintTop_toBottomOf="@+id/frameLayout"
         app:srcCompat="@drawable/plug" />
 
-    <TextView
-        android:id="@+id/socketNumber"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
-        android:text="TextView"
-        android:textColor="#9c382d"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
+        android:layout_height="79dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="IS SCHEDULED TO TURN OFF IN"
-        android:textColor="#9c382d"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/socketNumber" />
+        <TextView
+            android:id="@+id/socketNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:text="TextView"
+            android:textColor="#9c382d"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IS SCHEDULED TO TURN OFF IN"
+            android:textColor="#9c382d"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/scheduledTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -100,7 +103,6 @@
                     android:descendantFocusability="blocksDescendants"
                     android:scaleX="2"
                     android:scaleY="2"
-
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.818"
                     app:layout_constraintStart_toEndOf="@+id/NPHour"
@@ -173,6 +175,5 @@
             </LinearLayout>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
-
 
 </android.support.constraint.ConstraintLayout>
