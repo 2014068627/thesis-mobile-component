@@ -1,6 +1,8 @@
 package com.ust.thesis.lightsandsockets;
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,6 +29,7 @@ public class ActivityFragment extends Fragment {
 
     ListView lv;
     Context context;
+    Activity activity;
 
     public ActivityFragment() {
         // Required empty public constructor
@@ -38,7 +41,8 @@ public class ActivityFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activity, container, false);
 
-        context = getActivity();
+        activity = getActivity();
+        context = activity.getApplicationContext();
         initialize(view);
 
         String url = getString(R.string.apiserver) + "api/powerboard/activities";
@@ -51,6 +55,10 @@ public class ActivityFragment extends Fragment {
     }
 
     private void activityRequest(String url){
+        //dialog box for loading
+        final ProgressDialog api_dialog = new ProgressDialog(activity);
+        api_dialog.setMessage(getString(R.string.api_wait));
+        api_dialog.show();
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -61,7 +69,7 @@ public class ActivityFragment extends Fragment {
                     Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
                     if(success){
                         JSONArray activities = response.getJSONArray("user_activity");
-                        ActivitiesAdapter act = new ActivitiesAdapter(getContext(), activities);
+                        ActivitiesAdapter act = new ActivitiesAdapter(context, activities);
                         lv.setAdapter(act);
                     }else{
                         Toast.makeText(context,"Something occurred. Try again later",Toast.LENGTH_SHORT).show();
@@ -70,15 +78,16 @@ public class ActivityFragment extends Fragment {
                 }catch(Exception e){
                     Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
                 }
+                api_dialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context,"Error!",Toast.LENGTH_SHORT).show();
-
+                api_dialog.dismiss();
             }
         });
 
-        LSingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(request);
+        LSingleton.getInstance(context).addToRequestQueue(request);
     }
 }

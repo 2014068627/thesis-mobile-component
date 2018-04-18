@@ -1,5 +1,7 @@
 package com.ust.thesis.lightsandsockets;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,6 +42,7 @@ public class profileFragment extends Fragment{
     TextView profile_name;
 
     Context context;
+    Activity activity;
     String username;
     String id;
 
@@ -58,32 +61,44 @@ public class profileFragment extends Fragment{
         return view;
     }
 
+    /**
+     * function to initialize UI
+     */
     public void initialize(View view){
         changePassButton = view.findViewById(R.id.changePassButton);
         logoutButton = view.findViewById(R.id.logoutButton);
         aboutButton = view.findViewById(R.id.aboutButton);
         profile_name = view.findViewById(R.id.profile_name);
         profile_username = view.findViewById(R.id.profile_username);
-
-        context = getActivity();
+        activity = getActivity();
+        context = activity.getApplicationContext();
         LSession user_session = new LSession();
         String [] user_arr = user_session.getUserSession(context.getApplicationContext());
-//        Toast.makeText(context.getApplicationContext(), "User id is "+user_arr[1], Toast.LENGTH_SHORT).show();
-//        Toast.makeText(context.getApplicationContext(), "User username is "+user_arr[1], Toast.LENGTH_SHORT).show();
         id = user_arr[0];
         username = user_arr[1];
     }
 
+    /**
+     * function to go to intent Change Password Activity
+     */
     public void changePassword(Button changePassButton){
         changePassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(profileFragment.this.getActivity(), ChangePasswordActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", id);
+                bundle.putString("username", username);
+                myIntent.putExtras(bundle);
                 startActivity(myIntent);
             }
         });
     }
 
+    /**
+     * function for button to go to intent About Activity
+     * @param about
+     */
     public void aboutActivity(Button about){
         about.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,11 +109,16 @@ public class profileFragment extends Fragment{
         });
     }
 
+    /**
+     * function for user logout
+     */
     public void logoutUser(Button logout){
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(getActivity().getApplicationContext())
+
+                //alert box to confirm user for logout
+                new AlertDialog.Builder(activity)
                         .setTitle("Do you want to logout?")
                         .setMessage("Are you sure you want to logout?")
                         .setNegativeButton(android.R.string.no, null)
@@ -106,19 +126,22 @@ public class profileFragment extends Fragment{
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 LSession session = new LSession();
-                                if(session.clearSession(context.getApplicationContext())){
-                                    Toast.makeText(context.getApplicationContext(),"Session is empty",Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(context.getApplicationContext(),"Error in session",Toast.LENGTH_SHORT).show();
-                                }
-                                getActivity().finish();
+                                session.clearSession(context);
+                                activity.finish();
                             }
                         }).create().show();
             }
         });
     }
 
+    /**
+     * function to request API from server getting the user information
+     */
     private void profileRequest(String url){
+        //dialog box for loading
+        final ProgressDialog api_dialog = new ProgressDialog(activity);
+        api_dialog.setMessage(getString(R.string.api_wait));
+        api_dialog.show();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -132,18 +155,20 @@ public class profileFragment extends Fragment{
                         profile_name.setText(name);
                         profile_username.setText(username);
                     }else{
-                        Toast.makeText(context.getApplicationContext(), "Something occurred, Try again later.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Something occurred, Try again later.", Toast.LENGTH_SHORT).show();
                     }
                 }catch(Exception e){
-                    Toast.makeText(context.getApplicationContext(), "Something occurred, Try again later.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Something occurred, Try again later.", Toast.LENGTH_SHORT).show();
                 }
+                api_dialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context.getApplicationContext(), "Error.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error.", Toast.LENGTH_SHORT).show();
+                api_dialog.dismiss();
             }
         });
-        LSingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(request);
+        LSingleton.getInstance(context).addToRequestQueue(request);
     }
 }

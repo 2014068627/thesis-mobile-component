@@ -1,5 +1,6 @@
 package com.ust.thesis.lightsandsockets;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button fgPasswordBttn, loginBttn;
     private EditText usernameEdit, passwordEdit;
     private Context appContext;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +87,11 @@ public class LoginActivity extends AppCompatActivity {
      * function to POST into login API with username and password
      */
     private void loginRequest(String url, HashMap login_cred){
+        //dialog box for loading
+        final ProgressDialog api_dialog = new ProgressDialog(this);
+        api_dialog.setMessage(getString(R.string.api_wait));
+        api_dialog.show();
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(login_cred), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -107,9 +112,8 @@ public class LoginActivity extends AppCompatActivity {
                         //clear all text fields
                         usernameEdit.setText("");
                         passwordEdit.setText("");
-                        usernameEdit.requestFocus();
                         passwordEdit.requestFocus();
-
+                        usernameEdit.requestFocus();
                         //intent to go to next session
                         Intent myIntent = new Intent(LoginActivity.this, fragmentContainer.class);
                         startActivity(myIntent);
@@ -119,11 +123,15 @@ public class LoginActivity extends AppCompatActivity {
                 }catch(Exception e){
                     Toast.makeText(appContext,"AN ERROR OCCURED",Toast.LENGTH_SHORT).show();
                 }
+                //end dialog
+                api_dialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(appContext,"ERROR",Toast.LENGTH_SHORT).show();
+                //end dialog
+                api_dialog.dismiss();
             }
         }) {
             // https://stackoverflow.com/questions/43486027/how-to-send-request-header-is-content-typeapplication-json-when-get-on-voll
