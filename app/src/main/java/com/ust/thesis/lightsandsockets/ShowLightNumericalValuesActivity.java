@@ -81,5 +81,4 @@ public class ShowLightNumericalValuesActivity extends AppCompatActivity {
         cnva = new ConsumptionNumericalValuesLightAdapter(context, mConsumptionList);
         lv.setAdapter(cnva);
     }
-
 }

@@ -66,7 +66,6 @@ public class ActivityFragment extends Fragment {
                     JSONObject jres = response.getJSONObject("response");
                     boolean success = jres.getBoolean("success");
                     String message = jres.getString("message");
-                    Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
                     if(success){
                         JSONArray activities = response.getJSONArray("user_activity");
                         ActivitiesAdapter act = new ActivitiesAdapter(context, activities);

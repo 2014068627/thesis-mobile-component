@@ -149,9 +149,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
     }
 
-
-
-
     /**
      * function to request API from server and to POST new password
      */

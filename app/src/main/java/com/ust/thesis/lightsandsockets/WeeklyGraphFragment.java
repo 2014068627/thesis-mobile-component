@@ -66,7 +66,6 @@ public class WeeklyGraphFragment extends Fragment {
                     JSONObject json_response = response.getJSONObject("response");
                     boolean success = json_response.getBoolean("success");
                     String message = json_response.getString("message");
-                    Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
                     if(success){
                         JSONArray value = response.getJSONArray("weekly_graph");
 

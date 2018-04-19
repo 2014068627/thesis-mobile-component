@@ -2,6 +2,9 @@ package com.ust.thesis.lightsandsockets;
 
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -10,6 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.content.Intent;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.ust.thesis.lightsandsockets.objects.LSingleton;
+
+import org.json.JSONObject;
 
 
 /**
@@ -30,6 +42,9 @@ public class thingsFragment extends Fragment {
     TextView appliance2;
     TextView appliance3;
     TextView appliance4;
+
+    Activity activity;
+    Context context;
 
     public thingsFragment() {
         // Required empty public constructor
@@ -53,6 +68,8 @@ public class thingsFragment extends Fragment {
         appliance2 = view.findViewById(R.id.appliance2);
         appliance3 = view.findViewById(R.id.appliance3);
         appliance4 = view.findViewById(R.id.appliance4);
+        activity = getActivity();
+        context = activity.getApplicationContext();
 
         directToLight(light1);
         directToSocket(socket1Link, socket1, appliance1);
@@ -68,12 +85,12 @@ public class thingsFragment extends Fragment {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(thingsFragment.this.getActivity(), SocketActivity.class);
+                char socket_id = socket.charAt(socket.length() - 1);
+                String url = getString(R.string.apiserver) + "api/powerboard/socket_status/" + String.valueOf(socket_id);
                 Bundle bundle = new Bundle();
                 bundle.putString("socket", socket);
                 bundle.putString("appliance", appliance); /*temporary*/
-                myIntent.putExtras(bundle);
-                startActivity(myIntent);
+                socketRequest(url, bundle);
             }
         });
     }
@@ -86,5 +103,51 @@ public class thingsFragment extends Fragment {
                 startActivity(myIntent);
             }
         });
+    }
+
+    /**
+     * function for socket status thru API Request
+     */
+    private void socketRequest(String url, final Bundle bundle){
+        //dialog box for loading
+        final ProgressDialog api_dialog = new ProgressDialog(activity);
+        api_dialog.setMessage(getString(R.string.api_wait));
+        api_dialog.show();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try{
+                    JSONObject json_response = response.getJSONObject("response");
+                    boolean success = json_response.getBoolean("success");
+//                    String message = json_response.getString("message");
+//                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    if(success){
+                        JSONObject json_socket = response.getJSONObject("socket");
+                        String socket = json_socket.getString("socket");
+                        String socket_status = json_socket.getString("socket_status");
+                        bundle.putString("socket_id", socket);
+                        bundle.putString("socket_status", socket_status);
+                        //schedule bundle
+                        Intent intent = new Intent(thingsFragment.this.getActivity(), SocketActivity.class);
+                        intent.putExtras(bundle);
+
+                        api_dialog.dismiss();
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(activity, "Something occurred, Try again later.", Toast.LENGTH_SHORT).show();
+                    }
+                }catch(Exception e){
+                    Toast.makeText(activity, "Something occurred, Try again later!", Toast.LENGTH_SHORT).show();
+                }
+                api_dialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity, "ERROR", Toast.LENGTH_SHORT).show();
+                api_dialog.dismiss();
+            }
+        });
+        LSingleton.getInstance(context).addToRequestQueue(request);
     }
 }
