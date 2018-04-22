@@ -1,10 +1,12 @@
 package com.ust.thesis.lightsandsockets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +53,7 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
         numericClicked(dailyButton);
         weeklyClicked();
         dailyClicked();
+        GoBack();
     }
 
     private void initialize(){
@@ -146,4 +149,17 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
         });
         LSingleton.getInstance(context.getApplicationContext()).addToRequestQueue(request);
     }
+
+    private void GoBack(){
+        ImageButton bttn = (ImageButton) findViewById(R.id.backButton);
+        bttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ShowNumericalValuesActivity.this, SocketActivity.class);
+                myIntent.putExtras(bundle);
+                startActivity(myIntent);
+            }
+        });
+    }
+
 }

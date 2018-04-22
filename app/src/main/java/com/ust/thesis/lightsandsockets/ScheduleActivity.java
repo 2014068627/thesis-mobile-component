@@ -196,9 +196,12 @@ public class ScheduleActivity extends AppCompatActivity {
                     JSONObject json_response = response.getJSONObject("response");
                     boolean success = json_response.getBoolean("success");
                     if(success){
+                        JSONObject json_socket = response.getJSONObject("socket");
+                        boolean schedule = json_socket.getBoolean("schedule");
                         String message = json_response.getString("message");
                         Intent intent = new Intent();
                         intent.putExtra("message", message);
+                        intent.putExtra("schedule",schedule);
                         setResult(100, intent);
                     }else{
                         Toast.makeText(context, "There is an error, Try again later.", Toast.LENGTH_SHORT).show();

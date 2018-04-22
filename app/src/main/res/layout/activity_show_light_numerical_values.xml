@@ -14,7 +14,16 @@
         android:layout_above="@+id/main_nav"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/maroon"></FrameLayout>
+        android:background="@color/maroon">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/maroon"
+            app:srcCompat="@android:drawable/ic_menu_revert" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/socket_number"
@@ -67,7 +76,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/FragmentContainer"
+        android:id="@+id/FragmentContainerGraph"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

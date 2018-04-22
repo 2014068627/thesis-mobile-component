@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -46,6 +47,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         showPassword();
         enableCheckBox();
         changePassword();
+        GoBack();
     }
 
     /**
@@ -186,6 +188,17 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
         });
         LSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    private void GoBack(){
+        ImageButton bttn = (ImageButton) findViewById(R.id.backButton);
+        bttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ChangePasswordActivity.this, fragmentContainer.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
 }

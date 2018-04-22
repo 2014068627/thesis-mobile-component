@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class LightActivity extends AppCompatActivity {
         initialize();
         switchGraphs();
         lightBrightness();
+        GoBack();
     }
 
     public void initialize(){
@@ -44,7 +46,7 @@ public class LightActivity extends AppCompatActivity {
 
     private void setFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.FragmentContainer, fragment);
+        fragmentTransaction.replace(R.id.FragmentContainerGraph, fragment);
         fragmentTransaction.commit();
     }
 
@@ -84,6 +86,17 @@ public class LightActivity extends AppCompatActivity {
 
     public void lightBrightness(){
 
+    }
+
+    private void GoBack(){
+        ImageButton bttn = (ImageButton) findViewById(R.id.backButton);
+        bttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(LightActivity.this, fragmentContainer.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
 }

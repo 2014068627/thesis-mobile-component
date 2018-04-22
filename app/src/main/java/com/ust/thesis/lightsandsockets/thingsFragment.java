@@ -125,6 +125,14 @@ public class thingsFragment extends Fragment {
                         JSONObject json_socket = response.getJSONObject("socket");
                         String socket = json_socket.getString("socket");
                         String socket_status = json_socket.getString("socket_status");
+                        boolean schedule = json_socket.getBoolean("schedule");
+                        if(schedule){
+                            String sched_id = json_socket.getString("sched_id");
+                            String date_sched = json_socket.getString("date_sched");
+                            bundle.putString("sched_id",sched_id);
+                            bundle.putString("date_sched",date_sched);
+                        }
+                        bundle.putBoolean("schedule",schedule);
                         bundle.putString("socket_id", socket);
                         bundle.putString("socket_status", socket_status);
                         //schedule bundle

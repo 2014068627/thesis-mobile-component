@@ -1,10 +1,12 @@
 package com.ust.thesis.lightsandsockets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.ust.thesis.lightsandsockets.objects.ConsumptionNumericalValuesLightAdapter;
@@ -31,6 +33,7 @@ public class ShowLightNumericalValuesActivity extends AppCompatActivity {
 
         initialize();
         AddDailyInfo();
+        GoBack();
 
         dailyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,5 +83,16 @@ public class ShowLightNumericalValuesActivity extends AppCompatActivity {
         mConsumptionList.add(new ConsumptionNumerical(1, "6/6/2018", "900 W"));
         cnva = new ConsumptionNumericalValuesLightAdapter(context, mConsumptionList);
         lv.setAdapter(cnva);
+    }
+
+    private void GoBack(){
+        ImageButton bttn = (ImageButton) findViewById(R.id.backButton);
+        bttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ShowLightNumericalValuesActivity.this, LightActivity.class);
+                startActivity(myIntent);
+            }
+        });
     }
 }

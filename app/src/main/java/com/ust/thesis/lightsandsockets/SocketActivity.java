@@ -12,6 +12,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,9 @@ import com.ust.thesis.lightsandsockets.objects.LSession;
 import com.ust.thesis.lightsandsockets.objects.LSingleton;
 
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.net.URL;
 import java.util.HashMap;
 
 
@@ -35,8 +38,11 @@ public class SocketActivity extends AppCompatActivity {
     Button dailyButton;
     Button showNV;
     Bundle bundle;
+    Boolean schedule;
     DailyGraphFragment DF;
     WeeklyGraphFragment WF;
+    CancelScheduleFragment CSF;
+    SwitchButtonFragment SBF;
     Button scheduleButton;
     SwitchCompat switch_socket;
     Context context;
@@ -56,18 +62,14 @@ public class SocketActivity extends AppCompatActivity {
         //set variables
         initialize();
 
-        String socket = bundle.getString("socket"); /*Contains the name of the socket currently selected"*/
-        String appliance = bundle.getString("appliance"); /*Temporary device identification*/
-        setButtonStatus(switch_socket, bundle.getString("socket_status"));
-        socket_id = bundle.getString("socket_id").charAt(0);
-        socketNumber.setText(socket);
-        iappliance.setText(appliance);
-
         //give bundle to fragment class
         DF.setArguments(bundle);
         WF.setArguments(bundle);
+        CSF.setArguments(bundle);
+        SBF.setArguments(bundle);
 
-        setFragment(DF);
+        CheckSchedule(schedule);
+
         dailyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +77,7 @@ public class SocketActivity extends AppCompatActivity {
                 dailyButton.setTextColor(getResources().getColor(R.color.maroon));
                 weeklyButton.setBackgroundColor(getResources().getColor(R.color.maroon));
                 weeklyButton.setTextColor(getResources().getColor(R.color.peach));
-                setFragment(DF);
+                setFragmentGraph(DF);
             }
         });
 
@@ -86,16 +88,12 @@ public class SocketActivity extends AppCompatActivity {
                 weeklyButton.setTextColor(getResources().getColor(R.color.maroon));
                 dailyButton.setBackgroundColor(getResources().getColor(R.color.maroon));
                 dailyButton.setTextColor(getResources().getColor(R.color.peach));
-                setFragment(WF);
+                setFragmentGraph(WF);
             }
         });
 
         directToShowNV(showNV);
-
-        //for enabling schedule button if it is on
-        enableSwitch(switch_socket);
-        changeButtonLook(switch_socket.isChecked());
-        directToSchedule(scheduleButton);
+        GoBack();
     }
 
     /**
@@ -109,18 +107,34 @@ public class SocketActivity extends AppCompatActivity {
         showNV = findViewById(R.id.showNV);
         context = getApplicationContext();
         bundle = getIntent().getExtras();
+        String socket = bundle.getString("socket"); /*Contains the name of the socket currently selected"*/
+        String appliance = bundle.getString("appliance"); /*Temporary device identification*/
+        socket_id = bundle.getString("socket_id").charAt(0);
+        schedule = bundle.getBoolean("schedule");
+
+        socketNumber.setText(socket);
+        iappliance.setText(appliance);
 
         //SET FRAGMENTS
         DF = new DailyGraphFragment();
         WF = new WeeklyGraphFragment();
+        CSF = new CancelScheduleFragment();
+        SBF = new SwitchButtonFragment();
         weeklyButton = findViewById(R.id.WeeklyButton);
         dailyButton = findViewById(R.id.DailyButton);
+        setFragmentGraph(DF);
     }
 
 
-    private void setFragment(Fragment fragment){
+    private void setFragmentGraph(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.FragmentContainer, fragment);
+        fragmentTransaction.replace(R.id.FragmentContainerGraph, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void setFragmentSchedActive(Fragment fragment){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.FragmentContainerSched, fragment);
         fragmentTransaction.commit();
     }
 
@@ -138,122 +152,42 @@ public class SocketActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * function for clicked schedule button to go to schedule page
-     */
-    public void directToSchedule(Button button){
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SocketActivity.this, ScheduleActivity.class);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 100);
-            }
-        });
+    private void CheckSchedule(Boolean sched){
+        if(sched){
+            setFragmentSchedActive(CSF);
+        }else{
+            setFragmentSchedActive(SBF);
+        }
     }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 100){
+        if(requestCode == 100 && resultCode == 100){
             try{
-                String message = data.getStringExtra("message");
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-            }catch(Exception e){
-            }
-        }
-    }
-
-
-
-    /**
-     * function to change output if switch is switched
-     */
-    public void enableSwitch(SwitchCompat sw){
-        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                String url = getString(R.string.apiserver) + "api/powerboard/switch_socket";
-
-                LSession user_session = new LSession();
-                String [] user_arr = user_session.getUserSession(context);
-                String user_id = user_arr[0];
-                String user_username = user_arr[1];
-                String socket_switch;
-                if(isChecked){
-                    socket_switch = "on";
+                boolean schedule = data.getBooleanExtra("schedule", false);
+                if(schedule){
+                    CheckSchedule(true);
                 }else{
-                    socket_switch = "off";
+                    Toast.makeText(getApplicationContext(), "this is fail", Toast.LENGTH_SHORT).show();
                 }
-                String socket = String.valueOf(socket_id);
-                HashMap json_socket = new HashMap();
-                json_socket.put("socket", socket);
-                json_socket.put("switch", socket_switch);
-                json_socket.put("user_id", user_id);
-                json_socket.put("user_username", user_username);
+            }catch(Exception e){
 
-                switchsocketRequest(url, json_socket);
-                changeButtonLook(isChecked);
             }
-        });
-    }
-
-    /**
-     * function to change the enabled button schedule
-     */
-    public void changeButtonLook(boolean switched){
-        if(switched){
-            scheduleButton.setBackgroundColor(Color.parseColor("#9c382d"));
-            scheduleButton.setTextColor(Color.parseColor("#dbc3c0"));
-            scheduleButton.setEnabled(true);
-        }else{
-            scheduleButton.setBackgroundColor(Color.parseColor("#dbc3c0"));
-            scheduleButton.setTextColor(Color.parseColor("#ffffff"));
-            scheduleButton.setEnabled(false);
-
         }
     }
 
-    /**
-     * function to check the status of socket and update switch compat
-     */
-    public void setButtonStatus(SwitchCompat sw, String status){
-        if(status.equals("on")){
-            sw.setChecked(true);
-        }else if(status.equals("off")){
-            sw.setChecked(false);
-        }
-    }
-
-    private void switchsocketRequest(String url, HashMap json_socket){
-        //dialog box for loading
-        final ProgressDialog api_dialog = new ProgressDialog(this);
-        api_dialog.setMessage(getString(R.string.api_wait));
-        api_dialog.show();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(json_socket), new Response.Listener<JSONObject>() {
+    private void GoBack(){
+        ImageButton bttn = (ImageButton) findViewById(R.id.backButton);
+        bttn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(JSONObject response) {
-                try{
-                    JSONObject json_response = response.getJSONObject("response");
-                    boolean success = json_response.getBoolean("success");
-                    if(success){
-                        JSONObject json_socket = response.getJSONObject("socket");
-                        String socket_state = json_socket.getString("socket_state");
-                        setButtonStatus(switch_socket, socket_state);
-                    }else{
-                        Toast.makeText(context, "Something occurred, Try again later.", Toast.LENGTH_SHORT).show();
-                    }
-                }catch(Exception e){
-                    Toast.makeText(context, "Something occurred, Try again later!", Toast.LENGTH_SHORT).show();
-                }
-                api_dialog.dismiss();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                api_dialog.dismiss();
+            public void onClick(View v) {
+                Intent myIntent = new Intent(SocketActivity.this, fragmentContainer.class);
+                startActivity(myIntent);
             }
         });
-        LSingleton.getInstance(context).addToRequestQueue(request);
     }
 }
+
+
