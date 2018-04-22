@@ -119,8 +119,6 @@ public class thingsFragment extends Fragment {
                 try{
                     JSONObject json_response = response.getJSONObject("response");
                     boolean success = json_response.getBoolean("success");
-//                    String message = json_response.getString("message");
-//                    Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
                     if(success){
                         JSONObject json_socket = response.getJSONObject("socket");
                         String socket = json_socket.getString("socket");

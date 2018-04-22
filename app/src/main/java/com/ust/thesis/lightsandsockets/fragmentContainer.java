@@ -2,6 +2,7 @@ package com.ust.thesis.lightsandsockets;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -37,21 +38,15 @@ public class fragmentContainer extends AppCompatActivity {
         AF = new ActivityFragment();
         PF = new profileFragment();
 
-
-//        LSession ls = new LSession();
-//        final String [] ar = ls.getUserSession(appContext);
-
         setFragment(TF);
         bttmNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
                 switch(item.getItemId()){
                     case R.id.things :
-//                        Toast.makeText(getApplicationContext(),"id " + ar[0],Toast.LENGTH_SHORT).show();
                         setFragment(TF);
                         return true;
                     case R.id.activity :
-//                        Toast.makeText(getApplicationContext(),"username " + ar[1],Toast.LENGTH_SHORT).show();
                         setFragment(AF);
                         return true;
                     case R.id.profile :
@@ -70,10 +65,14 @@ public class fragmentContainer extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-//    @Override
-//    public void onFragmentInteraction(Uri uri){
-//
-//    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 300){
+            bttmNav.setSelectedItemId(R.id.profile);
+            setFragment(PF);
+        }
+    }
 
     /**
      * user pressed back to logout

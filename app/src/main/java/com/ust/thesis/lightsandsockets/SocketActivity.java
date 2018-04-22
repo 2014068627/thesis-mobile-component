@@ -1,9 +1,7 @@
 package com.ust.thesis.lightsandsockets;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -11,23 +9,9 @@ import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.ust.thesis.lightsandsockets.objects.LSession;
-import com.ust.thesis.lightsandsockets.objects.LSingleton;
-
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.net.URL;
-import java.util.HashMap;
 
 
 public class SocketActivity extends AppCompatActivity {
@@ -65,7 +49,6 @@ public class SocketActivity extends AppCompatActivity {
         //give bundle to fragment class
         DF.setArguments(bundle);
         WF.setArguments(bundle);
-        CSF.setArguments(bundle);
         SBF.setArguments(bundle);
 
         CheckSchedule(schedule);
@@ -93,7 +76,7 @@ public class SocketActivity extends AppCompatActivity {
         });
 
         directToShowNV(showNV);
-        GoBack();
+        goBack();
     }
 
     /**
@@ -135,7 +118,8 @@ public class SocketActivity extends AppCompatActivity {
     private void setFragmentSchedActive(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.FragmentContainerSched, fragment);
-        fragmentTransaction.commit();
+        // https://stackoverflow.com/questions/20702333/refresh-fragment-at-reload
+        fragmentTransaction.detach(fragment).attach(fragment).commit();
     }
 
     /**
@@ -154,6 +138,7 @@ public class SocketActivity extends AppCompatActivity {
 
     private void CheckSchedule(Boolean sched){
         if(sched){
+            CSF.setArguments(bundle);
             setFragmentSchedActive(CSF);
         }else{
             setFragmentSchedActive(SBF);
@@ -168,23 +153,26 @@ public class SocketActivity extends AppCompatActivity {
             try{
                 boolean schedule = data.getBooleanExtra("schedule", false);
                 if(schedule){
+                    String date_sched = data.getStringExtra("date_sched");
+                    String sched_id = data.getStringExtra("sched_id");
+                    bundle.putString("date_sched", date_sched);
+                    bundle.putString("sched_id", sched_id);
                     CheckSchedule(true);
                 }else{
-                    Toast.makeText(getApplicationContext(), "this is fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Something happened, Try again later!", Toast.LENGTH_SHORT).show();
                 }
             }catch(Exception e){
-
+                Toast.makeText(getApplicationContext(), "ERROR!", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void GoBack(){
-        ImageButton bttn = (ImageButton) findViewById(R.id.backButton);
-        bttn.setOnClickListener(new View.OnClickListener() {
+    private void goBack(){
+        ImageButton button_back = findViewById(R.id.backButton);
+        button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(SocketActivity.this, fragmentContainer.class);
-                startActivity(myIntent);
+                finish();
             }
         });
     }

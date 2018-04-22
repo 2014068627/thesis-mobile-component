@@ -37,6 +37,10 @@ public class CancelScheduleFragment extends Fragment {
     SwitchButtonFragment SBF;
     Bundle bundle;
 
+    String socket_id;
+    String date_sched;
+    String sched_id;
+
     public CancelScheduleFragment() {
         // Required empty public constructor
     }
@@ -53,9 +57,14 @@ public class CancelScheduleFragment extends Fragment {
     }
 
     private void initialize(View view){
-        textViewSchedule = (TextView) view.findViewById(R.id.textViewSchedule);
-        cancelSchedButton = (Button) view.findViewById(R.id.cancelSchedButton);
+        textViewSchedule = view.findViewById(R.id.textViewSchedule);
+        cancelSchedButton = view.findViewById(R.id.cancelSchedButton);
         bundle = getArguments();
+        socket_id = bundle.getString("socket_id");
+        date_sched = bundle.getString("date_sched");
+        sched_id = bundle.getString("sched_id");
+
+        textViewSchedule.setText("Socket "+ socket_id + " is scheduled for turn off in "+date_sched);
         CSF = new CancelScheduleFragment();
         SBF = new SwitchButtonFragment();
         SBF.setArguments(bundle);
@@ -69,13 +78,13 @@ public class CancelScheduleFragment extends Fragment {
                 String [] user_arr = user_session.getUserSession(getActivity());
                 String user_id = user_arr[0];
                 String user_username = user_arr[1];
+
                 HashMap json_cancel = new HashMap();
-                json_cancel.put("sched_id", bundle.getString("sched_id"));
-                json_cancel.put("socket", bundle.getString("socket_id"));
+                json_cancel.put("sched_id", sched_id);
+                json_cancel.put("socket", socket_id);
                 json_cancel.put("user_id", user_id);
                 json_cancel.put("user_username", user_username);
                 String url = getString(R.string.apiserver) + "api/powerboard/cancel_sched";
-                Toast.makeText(getActivity().getApplicationContext(),bundle.getString("socket_id"),Toast.LENGTH_SHORT).show();
                 cancelScheduleRequest(url, json_cancel);
             }
         });
@@ -87,23 +96,20 @@ public class CancelScheduleFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-    private void cancelScheduleRequest(String url, HashMap json_sched){
+    private void cancelScheduleRequest(String url, HashMap json_cancel){
         //dialog box for loading
         final ProgressDialog api_dialog = new ProgressDialog(this.getActivity());
         api_dialog.setMessage(getString(R.string.api_wait));
         api_dialog.show();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(json_sched), new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(json_cancel), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try{
                     JSONObject json_response = response.getJSONObject("response");
                     boolean success = json_response.getBoolean("success");
                     if(success){
-                        JSONObject socket_response = response.getJSONObject("socket");
-                        Toast.makeText(getActivity().getApplicationContext(),"Schedule was cancelled",Toast.LENGTH_SHORT).show();
                         setFragmentSchedActive(SBF);
                     }
-
                 }catch(Exception e){
                     Toast.makeText(getActivity().getApplicationContext(),"Failed to cancel schedule",Toast.LENGTH_SHORT).show();
                 }
@@ -118,8 +124,8 @@ public class CancelScheduleFragment extends Fragment {
         }){
             // https://stackoverflow.com/questions/43486027/how-to-send-request-header-is-content-typeapplication-json-when-get-on-voll
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+            public Map<String, String> getHeaders(){
+                Map<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/json");
                 return params;
             }

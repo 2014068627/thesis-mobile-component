@@ -47,7 +47,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         showPassword();
         enableCheckBox();
         changePassword();
-        GoBack();
+        goBack();
     }
 
     /**
@@ -150,6 +150,28 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * function for button back in
+     */
+    private void goBack(){
+        ImageButton button_back = findViewById(R.id.backButton);
+        button_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("message", "change password activity");
+                setResult(300, intent);
+                finish();
+            }
+        });
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent();
+        intent.putExtra("message", "change password activity");
+        setResult(300, intent);
+        finish();
+    }
 
     /**
      * function to request API from server and to POST new password
@@ -170,6 +192,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         JSONObject json_user = response.getJSONObject("user");
                         boolean changed_password = json_user.getBoolean("changed_password");
                         if(changed_password){
+                            Intent intent = new Intent();
+                            intent.putExtra("message", "change password activity");
+                            setResult(300, intent);
                             finish();
                         }
                     }else{
@@ -189,16 +214,4 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
         LSingleton.getInstance(context).addToRequestQueue(request);
     }
-
-    private void GoBack(){
-        ImageButton bttn = (ImageButton) findViewById(R.id.backButton);
-        bttn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(ChangePasswordActivity.this, fragmentContainer.class);
-                startActivity(myIntent);
-            }
-        });
-    }
-
 }

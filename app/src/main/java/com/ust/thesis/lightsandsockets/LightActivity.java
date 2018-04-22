@@ -29,7 +29,7 @@ public class LightActivity extends AppCompatActivity {
         initialize();
         switchGraphs();
         lightBrightness();
-        GoBack();
+        goBack();
     }
 
     public void initialize(){
@@ -88,13 +88,15 @@ public class LightActivity extends AppCompatActivity {
 
     }
 
-    private void GoBack(){
-        ImageButton bttn = (ImageButton) findViewById(R.id.backButton);
-        bttn.setOnClickListener(new View.OnClickListener() {
+    /**
+     * function to go back to last activity
+     */
+    private void goBack(){
+        ImageButton button_back = findViewById(R.id.backButton);
+        button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(LightActivity.this, fragmentContainer.class);
-                startActivity(myIntent);
+                finish();
             }
         });
     }

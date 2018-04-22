@@ -90,7 +90,7 @@ public class profileFragment extends Fragment{
                 bundle.putString("id", id);
                 bundle.putString("username", username);
                 myIntent.putExtras(bundle);
-                startActivity(myIntent);
+                getActivity().startActivityForResult(myIntent, 301);
             }
         });
     }
@@ -104,7 +104,7 @@ public class profileFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(profileFragment.this.getActivity(), AboutActivity.class);
-                startActivity(myIntent);
+                getActivity().startActivityForResult(myIntent, 301);
             }
         });
     }
