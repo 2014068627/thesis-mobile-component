@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ust.thesis.lightsandsockets.forgotPassword">
+    tools:context="com.ust.thesis.lightsandsockets.ConfirmTokenActivity">
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -29,18 +29,20 @@
         app:srcCompat="@drawable/logo" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/token"
         android:layout_width="265dp"
-        android:layout_height="33dp"
+        android:layout_height="63dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:background="@drawable/border"
         android:ems="10"
-        android:hint="EMAIL"
+        android:hint="TOKEN"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
-        android:textSize="13sp"
+        android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/token" />
 
     <TextView
         android:id="@+id/textView"
@@ -67,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="ACCOUNT RECOVERY"
+        android:text="CONFIRM TOKEN"
         android:textColor="#9c382d"
         android:textSize="27sp"
         app:layout_constraintEnd_toEndOf="parent"

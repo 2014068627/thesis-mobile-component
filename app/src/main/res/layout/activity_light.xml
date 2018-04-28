@@ -42,7 +42,7 @@
                 android:layout_height="115dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="36dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout"
@@ -52,44 +52,104 @@
                 android:id="@+id/socket_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="LIGHT: "
-                android:textColor="#9c382d"
+                android:layout_marginTop="8dp"
+                android:text="LIGHT"
+                android:textColor="@color/maroon"
                 android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.292"
+                app:layout_constraintHorizontal_bias="0.487"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-            <SeekBar
-                android:id="@+id/brightness"
-                android:layout_width="284dp"
-                android:layout_height="80dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+            <LinearLayout
+                android:id="@+id/lightBrightnessLinearLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:maxHeight="10dp"
-                android:minHeight="10dp"
-                android:progressTint="#5b9aff"
-                android:thumb="@drawable/seek_bar_thumb_shape"
+                android:background="@drawable/border_red_input"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/socket_number" />
+                app:layout_constraintTop_toBottomOf="@+id/socket_number">
+
+
+                <TextView
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Brightness:"
+                    android:layout_marginRight="4dp"/>
+
+                <Button
+                    android:id="@+id/Percent0"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@color/gray"
+                    android:layout_marginRight="4dp"
+                    android:text="0%"
+                    android:textColor="@color/lineColor" />
+
+                <Button
+                    android:id="@+id/Percent25"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@color/gray"
+                    android:layout_marginRight="4dp"
+                    android:text="25%"
+                    android:textColor="@color/lineColor" />
+
+                <Button
+                    android:id="@+id/Percent50"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@color/gray"
+                    android:layout_marginRight="4dp"
+                    android:text="50%"
+                    android:textColor="@color/lineColor" />
+
+                <Button
+                    android:id="@+id/Percent75"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@color/gray"
+                    android:layout_marginRight="4dp"
+                    android:text="75%"
+                    android:textColor="@color/lineColor" />
+
+                <Button
+                    android:id="@+id/Percent100"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@color/gray"
+                    android:layout_marginRight="4dp"
+                    android:text="100%"
+                    android:textColor="@color/lineColor" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="528dp"
                 android:layout_height="43dp"
+
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:background="#9c382d"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="400dp"
-                app:layout_constraintTop_toBottomOf="@+id/brightness" >
+                tools:layout_editor_absoluteY="340dp"
+                app:layout_constraintTop_toBottomOf="@+id/lightBrightnessLinearLayout">
 
                 <Button
                     android:id="@+id/DailyButton"
@@ -149,45 +209,6 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/showNV"></FrameLayout>
-
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="44dp"
-                android:layout_height="41dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="284dp"
-                android:layout_marginRight="0dp"
-                android:backgroundTint="@color/maroon"
-                app:layout_constraintEnd_toStartOf="@+id/seekBar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_brightness_low_black_24dp" />
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="44dp"
-                android:layout_height="41dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="284dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/seekBar"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_brightness_high_black_24dp" />
-
-            <TextView
-                android:id="@+id/percentage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="TextView"
-                android:textSize="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/socket_number"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

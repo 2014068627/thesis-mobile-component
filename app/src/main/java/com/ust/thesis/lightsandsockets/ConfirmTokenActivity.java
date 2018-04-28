@@ -7,29 +7,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class forgotPassword extends AppCompatActivity {
+public class ConfirmTokenActivity extends AppCompatActivity {
 
-    EditText email;
     Button nextActivity;
+    EditText token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
+        setContentView(R.layout.activity_confirm_token);
         initialize();
         toConfirmTokenActivity();
     }
 
     private void initialize(){
-        email = (EditText) findViewById(R.id.email);
-        nextActivity = (Button) findViewById(R.id.nextActivity);
+        nextActivity = findViewById(R.id.nextActivity);
+        token = findViewById(R.id.token);
     }
 
     private void toConfirmTokenActivity(){
         nextActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(forgotPassword.this, ConfirmTokenActivity.class);
+                Intent myIntent = new Intent(ConfirmTokenActivity.this, ChangeForgottenPasswordActivity.class);
                 startActivity(myIntent);
             }
         });

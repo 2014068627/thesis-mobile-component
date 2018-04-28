@@ -10,14 +10,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LightActivity extends AppCompatActivity {
 
     Button weeklyButton;
     Button dailyButton;
     Button showNV;
-    SeekBar brightness;
-    TextView percentage;
+    Button Percent0;
+    Button Percent25;
+    Button Percent50;
+    Button Percent75;
+    Button Percent100;
     private LightGraphDailyFragment DF;
     private LightGraphWeeklyFragment WF;
 
@@ -38,8 +42,11 @@ public class LightActivity extends AppCompatActivity {
         weeklyButton = (Button) findViewById(R.id.WeeklyButton);
         dailyButton = (Button) findViewById(R.id.DailyButton);
         showNV = (Button) findViewById(R.id.showNV);
-        brightness = (SeekBar) findViewById(R.id.brightness);
-        percentage = (TextView) findViewById(R.id.percentage);
+        Percent0 = (Button) findViewById(R.id.Percent0);
+        Percent25 = (Button) findViewById(R.id.Percent25);
+        Percent50 = (Button) findViewById(R.id.Percent50);
+        Percent75 = (Button) findViewById(R.id.Percent75);
+        Percent100 = (Button) findViewById(R.id.Percent100);
         directToShowNV(showNV);
         setFragment(DF);
     }
@@ -85,7 +92,54 @@ public class LightActivity extends AppCompatActivity {
     }
 
     public void lightBrightness(){
+        Percent0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonLightBrightness(Percent0);
+            }
+        });
 
+        Percent25.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonLightBrightness(Percent25);
+            }
+        });
+
+        Percent50.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonLightBrightness(Percent50);
+            }
+        });
+
+        Percent75.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonLightBrightness(Percent75);
+            }
+        });
+        Percent100.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonLightBrightness(Percent100);
+            }
+        });
+    }
+
+    private void buttonLightBrightness(final Button button){
+        Percent0.setBackgroundColor(getResources().getColor(R.color.gray));
+        Percent0.setTextColor(getResources().getColor(R.color.lineColor));
+        Percent25.setBackgroundColor(getResources().getColor(R.color.gray));
+        Percent25.setTextColor(getResources().getColor(R.color.lineColor));
+        Percent50.setBackgroundColor(getResources().getColor(R.color.gray));
+        Percent50.setTextColor(getResources().getColor(R.color.lineColor));
+        Percent75.setBackgroundColor(getResources().getColor(R.color.gray));
+        Percent75.setTextColor(getResources().getColor(R.color.lineColor));
+        Percent100.setBackgroundColor(getResources().getColor(R.color.gray));
+        Percent100.setTextColor(getResources().getColor(R.color.lineColor));
+        button.setBackgroundColor(getResources().getColor(R.color.lineColor));
+        button.setTextColor(getResources().getColor(R.color.white));
     }
 
     /**
