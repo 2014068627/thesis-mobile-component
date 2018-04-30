@@ -88,8 +88,9 @@ public class forgotPassword extends AppCompatActivity {
                 Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
                 api_dialog.dismiss();
             }
-        }).setRetryPolicy(new DefaultRetryPolicy(
-                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
+        })      // https://stackoverflow.com/questions/6330260/finish-all-previous-activities
+                .setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 4,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         LSingleton.getInstance(context).addToRequestQueue(request);
