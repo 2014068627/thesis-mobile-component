@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.ust.thesis.lightsandsockets.objects.LSingleton;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -99,8 +100,11 @@ public class thingsFragment extends Fragment {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(thingsFragment.this.getActivity(), LightActivity.class);
-                startActivity(myIntent);
+
+                String url = getString(R.string.apiserver) + "api/powerboard/light_socket";
+                Bundle bundle = new Bundle();
+                bundle.putString("socket", "5");
+                lightRequest(url, bundle);
             }
         });
     }
@@ -144,6 +148,46 @@ public class thingsFragment extends Fragment {
                     }
                 }catch(Exception e){
                     Toast.makeText(activity, "Something occurred, Try again later!", Toast.LENGTH_SHORT).show();
+                }
+                api_dialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(activity, "ERROR", Toast.LENGTH_SHORT).show();
+                api_dialog.dismiss();
+            }
+        });
+        LSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    private void lightRequest(String url, final Bundle bundle){
+        //dialog box for loading
+        final ProgressDialog api_dialog = new ProgressDialog(activity);
+        api_dialog.setMessage(getString(R.string.api_wait));
+        api_dialog.show();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try{
+                    JSONObject json_response = response.getJSONObject("response");
+                    boolean success = json_response.getBoolean("success");
+                    if(success){
+                        JSONObject json_socket = response.getJSONObject("socket");
+                        String socket_id = json_socket.getString("socket");
+                        String brightness = json_socket.getString("brightness");
+                        bundle.putString("brightness", brightness);
+                        bundle.putString("socket_id", socket_id);
+                        Intent intent = new Intent(thingsFragment.this.getActivity(), LightActivity.class);
+                        intent.putExtras(bundle);
+
+                        api_dialog.dismiss();
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(activity, "Something occurred, Try again later.", Toast.LENGTH_SHORT).show();
+                    }
+                }catch(JSONException e){
+                    Toast.makeText(activity, "Something occurred, Try again later.", Toast.LENGTH_SHORT).show();
                 }
                 api_dialog.dismiss();
             }

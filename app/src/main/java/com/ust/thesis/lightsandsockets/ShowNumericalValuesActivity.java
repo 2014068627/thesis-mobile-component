@@ -53,7 +53,7 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
         numericClicked(dailyButton);
         weeklyClicked();
         dailyClicked();
-        GoBack();
+        goBack();
     }
 
     private void initialize(){
@@ -150,14 +150,12 @@ public class ShowNumericalValuesActivity extends AppCompatActivity {
         LSingleton.getInstance(context.getApplicationContext()).addToRequestQueue(request);
     }
 
-    private void GoBack(){
+    private void goBack(){
         ImageButton bttn = (ImageButton) findViewById(R.id.backButton);
         bttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(ShowNumericalValuesActivity.this, SocketActivity.class);
-                myIntent.putExtras(bundle);
-                startActivity(myIntent);
+                finish();
             }
         });
     }

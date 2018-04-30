@@ -1,19 +1,24 @@
 package com.ust.thesis.lightsandsockets;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.ust.thesis.lightsandsockets.objects.ConsumptionNumericalValuesLightAdapter;
-import com.ust.thesis.lightsandsockets.objects.ConsumptionNumericalValuesLightAdapter.ConsumptionNumerical;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.ust.thesis.lightsandsockets.objects.ConsumptionNumericalValuesAdapter;
+import com.ust.thesis.lightsandsockets.objects.LSingleton;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ShowLightNumericalValuesActivity extends AppCompatActivity {
 
@@ -21,10 +26,10 @@ public class ShowLightNumericalValuesActivity extends AppCompatActivity {
     Button dailyButton;
     Button showNV;
     Context context;
+    ListView lv;
+    Bundle bundle;
 
-    private ListView lv;
-    private ConsumptionNumericalValuesLightAdapter cnva;
-    private List<ConsumptionNumerical> mConsumptionList;
+    String socket_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +37,14 @@ public class ShowLightNumericalValuesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_light_numerical_values);
 
         initialize();
-        AddDailyInfo();
-        GoBack();
+        socket_id = bundle.getString("socket_id");
+        numericClicked(dailyButton);
+        goBack();
 
         dailyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddDailyInfo();
+                addDailyInfo();
             }
         });
 
@@ -51,25 +57,40 @@ public class ShowLightNumericalValuesActivity extends AppCompatActivity {
     }
 
     public void initialize(){
-        showNV = (Button) findViewById(R.id.showNV);
-        weeklyButton = (Button) findViewById(R.id.WeeklyButton);
-        dailyButton = (Button) findViewById(R.id.DailyButton);
+        showNV = findViewById(R.id.showNV);
+        weeklyButton = findViewById(R.id.WeeklyButton);
+        dailyButton = findViewById(R.id.DailyButton);
         context = getApplicationContext();
+        bundle = getIntent().getExtras();
 
-        lv = (ListView) findViewById(R.id.listViewNumerical);
-        mConsumptionList = new ArrayList<>();
+        lv = findViewById(R.id.listViewNumerical);
     }
 
-    public void AddDailyInfo(){
+    /**
+     * function to compare button clicked for API Request
+     */
+    private void numericClicked(Button numeric_button){
+        String url = getString(R.string.apiserver) + "api/powerboard/";
+        switch(numeric_button.getId()){
+            case R.id.DailyButton:
+                url += "daily_consumed/" + socket_id;
+                numericRequest(url);
+                break;
+            case R.id.WeeklyButton:
+                url += "weekly_consumed/" + socket_id;
+                numericRequest(url);
+                break;
+            default:
+        }
+    }
+
+    public void addDailyInfo(){
         dailyButton.setBackgroundColor(getResources().getColor(R.color.white));
         dailyButton.setTextColor(getResources().getColor(R.color.maroon));
         weeklyButton.setBackgroundColor(getResources().getColor(R.color.maroon));
         weeklyButton.setTextColor(getResources().getColor(R.color.peach));
         lv.setAdapter(null);
-        mConsumptionList.clear();
-        mConsumptionList.add(new ConsumptionNumerical(1, "3/3/2018", "300 W"));
-        cnva = new ConsumptionNumericalValuesLightAdapter(context, mConsumptionList);
-        lv.setAdapter(cnva);
+        numericClicked(dailyButton);
     }
 
     public void AddWeeklyInfo(){
@@ -78,21 +99,53 @@ public class ShowLightNumericalValuesActivity extends AppCompatActivity {
         dailyButton.setBackgroundColor(getResources().getColor(R.color.maroon));
         dailyButton.setTextColor(getResources().getColor(R.color.peach));
         lv.setAdapter(null);
-        mConsumptionList.clear();
-        mConsumptionList.add(new ConsumptionNumerical(1, "3/5/2018", "600 W"));
-        mConsumptionList.add(new ConsumptionNumerical(1, "6/6/2018", "900 W"));
-        cnva = new ConsumptionNumericalValuesLightAdapter(context, mConsumptionList);
-        lv.setAdapter(cnva);
+        numericClicked(weeklyButton);
     }
 
-    private void GoBack(){
-        ImageButton bttn = (ImageButton) findViewById(R.id.backButton);
+    private void goBack(){
+        ImageButton bttn = findViewById(R.id.backButton);
         bttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(ShowLightNumericalValuesActivity.this, LightActivity.class);
-                startActivity(myIntent);
+                finish();
             }
         });
+    }
+
+    /**
+     * function for API Request for numerical data
+     */
+    private void numericRequest(String url){
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject json_response = response.getJSONObject("response");
+                    boolean success = json_response.getBoolean("success");
+                    String socket_data = json_response.getString("socket_data");
+                    if(success){
+                        ConsumptionNumericalValuesAdapter ocnva;
+                        if(socket_data.equals("daily")){
+                            JSONArray json_daily_array = response.getJSONArray("daily_consumed");
+                            ocnva = new ConsumptionNumericalValuesAdapter(context, json_daily_array);
+                        }else{
+                            JSONArray json_weekly_array = response.getJSONArray("weekly_consumed");
+                            ocnva = new ConsumptionNumericalValuesAdapter(context, json_weekly_array);
+                        }
+                        lv.setAdapter(ocnva);
+                    }else{
+                        Toast.makeText(context,"Something occurred, Try again!",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context,"Something occurred, Try again!",Toast.LENGTH_SHORT).show();
+            }
+        });
+        LSingleton.getInstance(context.getApplicationContext()).addToRequestQueue(request);
     }
 }
