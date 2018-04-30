@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -266,7 +267,7 @@ public class LightActivity extends AppCompatActivity {
         api_dialog.setMessage(getString(R.string.api_wait));
         api_dialog.show();
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(json_brightness), new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = (JsonObjectRequest) new JsonObjectRequest(Request.Method.POST, url, new JSONObject(json_brightness), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try{
@@ -295,7 +296,10 @@ public class LightActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 api_dialog.dismiss();
             }
-        });
+        }).setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         LSingleton.getInstance(context).addToRequestQueue(request);
     }
 }
