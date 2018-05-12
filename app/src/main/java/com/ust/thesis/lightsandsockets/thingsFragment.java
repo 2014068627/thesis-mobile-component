@@ -117,6 +117,7 @@ public class thingsFragment extends Fragment {
                         JSONObject json_socket = response.getJSONObject("socket");
                         String socket = json_socket.getString("socket");
                         String socket_status = json_socket.getString("socket_status");
+                        String appliance = json_socket.getString("appliance");
                         boolean schedule = json_socket.getBoolean("schedule");
                         if(schedule){
                             String sched_id = json_socket.getString("sched_id");
@@ -126,6 +127,7 @@ public class thingsFragment extends Fragment {
                         }
                         bundle.putBoolean("schedule",schedule);
                         bundle.putString("socket_id", socket);
+                        bundle.putString("appliance", appliance);
                         bundle.putString("socket_status", socket_status);
                         //schedule bundle
                         Intent intent = new Intent(thingsFragment.this.getActivity(), SocketActivity.class);

@@ -28,6 +28,7 @@ public class SocketActivity extends AppCompatActivity {
     SwitchButtonFragment SBF;
     Button scheduleButton;
     SwitchCompat switch_socket;
+    TextView identifiedDevice;
     Context context;
 
     char socket_id;
@@ -86,12 +87,14 @@ public class SocketActivity extends AppCompatActivity {
         scheduleButton = findViewById(R.id.scheduleButton);
         switch_socket = findViewById(R.id.switch1);
         showNV = findViewById(R.id.showNV);
+        identifiedDevice = findViewById(R.id.identifiedDevice);
         context = getApplicationContext();
         bundle = getIntent().getExtras();
         String socket = bundle.getString("socket"); /*Contains the name of the socket currently selected"*/
-        String appliance = bundle.getString("appliance"); /*Temporary device identification*/
+//        String appliance = bundle.getString("appliance"); /*Temporary device identification*/
         socket_id = bundle.getString("socket_id").charAt(0);
         schedule = bundle.getBoolean("schedule");
+        identifiedDevice.setText(bundle.getString("appliance"));
 
         socketNumber.setText(socket);
 

@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.support.v7.widget.SwitchCompat;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.ust.thesis.lightsandsockets.objects.LSession;
 import com.ust.thesis.lightsandsockets.objects.LSingleton;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -175,7 +177,10 @@ public class SwitchButtonFragment extends Fragment {
                     boolean success = json_response.getBoolean("success");
                     if(success){
                         JSONObject json_socket = response.getJSONObject("socket");
+                        String socket_id = json_socket.getString("socket");
                         String socket_state = json_socket.getString("socket_state");
+                        String app_url = getString(R.string.apiserver) + "api/powerboard/get_appliance/"+socket_id;
+//                        getApplianceRequest(app_url);
                         setButtonStatus(switch_socket, socket_state);
                     }else{
                         Toast.makeText(getActivity(), "Something occurred, Try again later.", Toast.LENGTH_SHORT).show();
@@ -190,6 +195,36 @@ public class SwitchButtonFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
                 api_dialog.dismiss();
+            }
+        });
+        LSingleton.getInstance(getActivity()).addToRequestQueue(request);
+    }
+
+    private void getApplianceRequest(String url){
+        Toast.makeText(getActivity().getApplicationContext(), "HELLO", Toast.LENGTH_SHORT).show();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject json_response = response.getJSONObject("response");
+                    boolean success = json_response.getBoolean("success");
+                    if(success){
+                        JSONObject json_socket = response.getJSONObject("socket");
+                        String appliance = json_socket.getString("appliance");
+                        TextView identifiedDevice = getActivity().findViewById(R.id.identifiedDevice);
+                        Toast.makeText(getActivity().getApplicationContext(), appliance, Toast.LENGTH_SHORT).show();
+                        identifiedDevice.setText(appliance);
+                    }else{
+                        Toast.makeText(getActivity(), "Something occurred, Try again later.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getActivity(), "Something occurred, Try again later!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "ERROR!", Toast.LENGTH_SHORT).show();
             }
         });
         LSingleton.getInstance(getActivity()).addToRequestQueue(request);
