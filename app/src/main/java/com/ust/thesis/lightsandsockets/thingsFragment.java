@@ -39,10 +39,6 @@ public class thingsFragment extends Fragment {
     TextView socket2;
     TextView socket3;
     TextView socket4;
-    TextView appliance1;
-    TextView appliance2;
-    TextView appliance3;
-    TextView appliance4;
 
     Activity activity;
     Context context;
@@ -65,24 +61,19 @@ public class thingsFragment extends Fragment {
         socket2 = view.findViewById(R.id.socket2);
         socket3 = view.findViewById(R.id.socket3);
         socket4 = view.findViewById(R.id.socket4);
-        appliance1 = view.findViewById(R.id.appliance1);
-        appliance2 = view.findViewById(R.id.appliance2);
-        appliance3 = view.findViewById(R.id.appliance3);
-        appliance4 = view.findViewById(R.id.appliance4);
         activity = getActivity();
         context = activity.getApplicationContext();
 
         directToLight(light1);
-        directToSocket(socket1Link, socket1, appliance1);
-        directToSocket(socket2Link, socket2, appliance2);
-        directToSocket(socket3Link, socket3, appliance3);
-        directToSocket(socket4Link, socket4, appliance4);
+        directToSocket(socket1Link, socket1);
+        directToSocket(socket2Link, socket2);
+        directToSocket(socket3Link, socket3);
+        directToSocket(socket4Link, socket4);
         return view;
     }
 
-    public void directToSocket(ConstraintLayout layout, TextView text, TextView appliances/*temporary*/){
+    public void directToSocket(ConstraintLayout layout, TextView text){
         final String socket = text.getText().toString();
-        final String appliance = appliances.getText().toString();
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +81,6 @@ public class thingsFragment extends Fragment {
                 String url = getString(R.string.apiserver) + "api/powerboard/socket_status/" + String.valueOf(socket_id);
                 Bundle bundle = new Bundle();
                 bundle.putString("socket", socket);
-                bundle.putString("appliance", appliance); /*temporary*/
                 socketRequest(url, bundle);
             }
         });

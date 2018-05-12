@@ -103,17 +103,6 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView5"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/appliance1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:text="This is the device"
-                    app:layout_constraintStart_toEndOf="@+id/socket1"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="60dp"
@@ -143,17 +132,6 @@
                     android:textColor="@color/maroon"
                     android:textSize="20dp"
                     app:layout_constraintStart_toEndOf="@+id/imageView6"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/appliance2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:text="TextView"
-                    app:layout_constraintStart_toEndOf="@+id/socket2"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -187,17 +165,6 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView7"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/appliance3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:text="TextView"
-                    app:layout_constraintStart_toEndOf="@+id/socket3"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <ImageView
                     android:id="@+id/imageView7"
                     android:layout_width="60dp"
@@ -227,17 +194,6 @@
                     android:textColor="@color/maroon"
                     android:textSize="20dp"
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/appliance4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:text="TextView"
-                    app:layout_constraintStart_toEndOf="@+id/socket4"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView

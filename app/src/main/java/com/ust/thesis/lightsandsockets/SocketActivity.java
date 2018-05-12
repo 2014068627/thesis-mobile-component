@@ -17,7 +17,6 @@ import android.widget.Toast;
 public class SocketActivity extends AppCompatActivity {
 
     TextView socketNumber;
-    TextView  iappliance;
     Button weeklyButton;
     Button dailyButton;
     Button showNV;
@@ -84,7 +83,6 @@ public class SocketActivity extends AppCompatActivity {
      */
     private void initialize(){
         socketNumber = findViewById(R.id.socket_number);
-        iappliance = findViewById(R.id.identifiedDevice);
         scheduleButton = findViewById(R.id.scheduleButton);
         switch_socket = findViewById(R.id.switch1);
         showNV = findViewById(R.id.showNV);
@@ -96,7 +94,6 @@ public class SocketActivity extends AppCompatActivity {
         schedule = bundle.getBoolean("schedule");
 
         socketNumber.setText(socket);
-        iappliance.setText(appliance);
 
         //SET FRAGMENTS
         DF = new DailyGraphFragment();
