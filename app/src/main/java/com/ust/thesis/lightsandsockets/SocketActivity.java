@@ -1,5 +1,6 @@
 package com.ust.thesis.lightsandsockets;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.ust.thesis.lightsandsockets.objects.LSingleton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class SocketActivity extends AppCompatActivity {
@@ -184,10 +194,46 @@ public class SocketActivity extends AppCompatActivity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String url = getString(R.string.apiserver) + "api/powerboard/get_appliance/" + socket_id;
+                Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
+                getApplianceRequest(url);
             }
         });
     }
+    private void getApplianceRequest(String url){
+        //dialog box for loading
+        final ProgressDialog api_dialog = new ProgressDialog(this);
+        api_dialog.setMessage(getString(R.string.api_wait));
+        api_dialog.show();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject json_response = response.getJSONObject("response");
+                    boolean success  = json_response.getBoolean("success");
+                    if(success){
+                        JSONObject json_socket = response.getJSONObject("socket");
+                        String appliance = json_socket.getString("appliance");
+                        identifiedDevice.setText(appliance);
+                    }else{
+                        Toast.makeText(context, "Something occured, Try again later.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Something occured, Try again later!", Toast.LENGTH_SHORT).show();
+                }
+                api_dialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context , "ERROR!", Toast.LENGTH_SHORT).show();
+                api_dialog.dismiss();
+            }
+        });
+        LSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
 
 }
 
