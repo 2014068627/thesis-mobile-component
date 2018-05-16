@@ -19,6 +19,7 @@ public class SocketActivity extends AppCompatActivity {
     TextView socketNumber;
     Button weeklyButton;
     Button dailyButton;
+    ImageButton refreshButton;
     Button showNV;
     Bundle bundle;
     Boolean schedule;
@@ -77,6 +78,7 @@ public class SocketActivity extends AppCompatActivity {
 
         directToShowNV(showNV);
         goBack();
+        refreshAppliance();
     }
 
     /**
@@ -86,6 +88,7 @@ public class SocketActivity extends AppCompatActivity {
         socketNumber = findViewById(R.id.socket_number);
         scheduleButton = findViewById(R.id.scheduleButton);
         switch_socket = findViewById(R.id.switch1);
+        refreshButton = findViewById(R.id.refreshButton);
         showNV = findViewById(R.id.showNV);
         identifiedDevice = findViewById(R.id.identifiedDevice);
         context = getApplicationContext();
@@ -176,6 +179,16 @@ public class SocketActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void refreshAppliance(){
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
 }
 
 
