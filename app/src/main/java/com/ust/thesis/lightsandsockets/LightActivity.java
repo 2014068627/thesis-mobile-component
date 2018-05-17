@@ -37,6 +37,7 @@ public class LightActivity extends AppCompatActivity {
     Button Percent50;
     Button Percent75;
     Button Percent100;
+    SeekBar slider;
     Context context;
     Bundle bundle;
 
@@ -73,6 +74,7 @@ public class LightActivity extends AppCompatActivity {
         Percent50 = findViewById(R.id.Percent50);
         Percent75 = findViewById(R.id.Percent75);
         Percent100 = findViewById(R.id.Percent100);
+        slider = findViewById(R.id.slideDimmer);
         context = getApplicationContext();
         bundle = getIntent().getExtras();
         socket_id = bundle.getString("socket_id").charAt(0);

@@ -67,7 +67,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/border_red_input"
+
                 android:orientation="horizontal"
                 android:paddingBottom="20dp"
                 android:paddingLeft="10dp"
@@ -79,62 +79,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/socket_number">
 
 
-                <TextView
-                    android:layout_width="15dp"
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_brightness_low_black_24dp" />
+
+                <SeekBar
+                    android:id="@+id/slideDimmer"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Brightness:"
-                    android:layout_marginRight="4dp"/>
+                    android:thumb="@drawable/seek_bar_thumb_shape" />
 
-                <Button
-                    android:id="@+id/Percent0"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"
-                    android:background="@color/gray"
-                    android:layout_marginRight="4dp"
-                    android:text="0%"
-                    android:textColor="@color/lineColor" />
-
-                <Button
-                    android:id="@+id/Percent25"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"
-                    android:background="@color/gray"
-                    android:layout_marginRight="4dp"
-                    android:text="25%"
-                    android:textColor="@color/lineColor" />
-
-                <Button
-                    android:id="@+id/Percent50"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"
-                    android:background="@color/gray"
-                    android:layout_marginRight="4dp"
-                    android:text="50%"
-                    android:textColor="@color/lineColor" />
-
-                <Button
-                    android:id="@+id/Percent75"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"
-                    android:background="@color/gray"
-                    android:layout_marginRight="4dp"
-                    android:text="75%"
-                    android:textColor="@color/lineColor" />
-
-                <Button
-                    android:id="@+id/Percent100"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"
-                    android:background="@color/gray"
-                    android:layout_marginRight="4dp"
-                    android:text="100%"
-                    android:textColor="@color/lineColor" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    app:srcCompat="@drawable/ic_brightness_high_black_24dp" />
             </LinearLayout>
 
             <LinearLayout
