@@ -32,11 +32,6 @@ public class LightActivity extends AppCompatActivity {
     Button weeklyButton;
     Button dailyButton;
     Button showNV;
-    Button Percent0;
-    Button Percent25;
-    Button Percent50;
-    Button Percent75;
-    Button Percent100;
     SeekBar slider;
     Context context;
     Bundle bundle;
@@ -69,18 +64,13 @@ public class LightActivity extends AppCompatActivity {
         weeklyButton = findViewById(R.id.WeeklyButton);
         dailyButton = findViewById(R.id.DailyButton);
         showNV = findViewById(R.id.showNV);
-        Percent0 = findViewById(R.id.Percent0);
-        Percent25 = findViewById(R.id.Percent25);
-        Percent50 = findViewById(R.id.Percent50);
-        Percent75 = findViewById(R.id.Percent75);
-        Percent100 = findViewById(R.id.Percent100);
         slider = findViewById(R.id.slideDimmer);
         context = getApplicationContext();
         bundle = getIntent().getExtras();
         socket_id = bundle.getString("socket_id").charAt(0);
         brightness = bundle.getString("brightness");
 //        Toast.makeText(context, brightness + " " + socket_id, Toast.LENGTH_SHORT).show();
-        setBrightnessButton(brightness);
+//        setBrightnessButton(brightness);
 
         directToShowNV(showNV);
         setFragment(DF);
@@ -128,91 +118,7 @@ public class LightActivity extends AppCompatActivity {
     }
 
     public void lightBrightness(){
-        Percent0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonLightBrightness(Percent0);
-            }
-        });
 
-        Percent25.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonLightBrightness(Percent25);
-            }
-        });
-
-        Percent50.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonLightBrightness(Percent50);
-            }
-        });
-
-        Percent75.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonLightBrightness(Percent75);
-            }
-        });
-        Percent100.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonLightBrightness(Percent100);
-            }
-        });
-    }
-
-    private void buttonLightBrightness(final Button button){
-
-
-        Percent0.setBackgroundColor(getResources().getColor(R.color.gray));
-        Percent0.setTextColor(getResources().getColor(R.color.lineColor));
-        Percent25.setBackgroundColor(getResources().getColor(R.color.gray));
-        Percent25.setTextColor(getResources().getColor(R.color.lineColor));
-        Percent50.setBackgroundColor(getResources().getColor(R.color.gray));
-        Percent50.setTextColor(getResources().getColor(R.color.lineColor));
-        Percent75.setBackgroundColor(getResources().getColor(R.color.gray));
-        Percent75.setTextColor(getResources().getColor(R.color.lineColor));
-        Percent100.setBackgroundColor(getResources().getColor(R.color.gray));
-        Percent100.setTextColor(getResources().getColor(R.color.lineColor));
-
-        String url = getString(R.string.apiserver) + "api/powerboard/change_brightness";
-        String [] user_session = new LSession().getUserSession(context);
-        HashMap json_brightness = new HashMap();
-        switch(button.getId()){
-            case R.id.Percent0:
-
-                json_brightness.put("brightness", "0");
-                json_brightness.put("user_id", user_session[0]);
-                json_brightness.put("user_username", user_session[1]);
-                brightnessRequest(url, json_brightness, button);
-                break;
-            case R.id.Percent25:
-                json_brightness.put("brightness", "25");
-                json_brightness.put("user_id", user_session[0]);
-                json_brightness.put("user_username", user_session[1]);
-                brightnessRequest(url, json_brightness, button);
-                break;
-            case R.id.Percent50:
-                json_brightness.put("brightness", "50");
-                json_brightness.put("user_id", user_session[0]);
-                json_brightness.put("user_username", user_session[1]);
-                brightnessRequest(url, json_brightness, button);
-                break;
-            case R.id.Percent75:
-                json_brightness.put("brightness", "75");
-                json_brightness.put("user_id", user_session[0]);
-                json_brightness.put("user_username", user_session[1]);
-                brightnessRequest(url, json_brightness, button);
-                break;
-            case R.id.Percent100:
-                json_brightness.put("brightness", "100");
-                json_brightness.put("user_id", user_session[0]);
-                json_brightness.put("user_username", user_session[1]);
-                brightnessRequest(url, json_brightness, button);
-                break;
-        }
     }
 
     /**
@@ -228,81 +134,49 @@ public class LightActivity extends AppCompatActivity {
         });
     }
 
-    private void setBrightnessButton(String brightness){
-        int bright = Integer.parseInt(brightness);
-        switch(bright){
-            case 0:
-                Percent0.setBackgroundColor(getResources().getColor(R.color.lineColor));
-                Percent0.setTextColor(getResources().getColor(R.color.white));
-                Percent0.setEnabled(false);
-                break;
-            case 25:
-                Percent25.setBackgroundColor(getResources().getColor(R.color.lineColor));
-                Percent25.setTextColor(getResources().getColor(R.color.white));
-                Percent25.setEnabled(false);
-                break;
-            case 50:
-                Percent50.setBackgroundColor(getResources().getColor(R.color.lineColor));
-                Percent50.setTextColor(getResources().getColor(R.color.white));
-                Percent50.setEnabled(false);
-                break;
-            case 75:
-                Percent75.setBackgroundColor(getResources().getColor(R.color.lineColor));
-                Percent75.setTextColor(getResources().getColor(R.color.white));
-                Percent75.setEnabled(false);
-                break;
-            case 100:
-                Percent100.setBackgroundColor(getResources().getColor(R.color.lineColor));
-                Percent100.setTextColor(getResources().getColor(R.color.white));
-                Percent100.setEnabled(false);
-                break;
-
-        }
-    }
-
     /**
      * function to request API from server
      */
-    private void brightnessRequest(String url, HashMap json_brightness, final Button button){
-        //dialog box for loading
-        final ProgressDialog api_dialog = new ProgressDialog(this);
-        api_dialog.setMessage(getString(R.string.api_wait));
-        api_dialog.show();
-
-        JsonObjectRequest request = (JsonObjectRequest) new JsonObjectRequest(Request.Method.POST, url, new JSONObject(json_brightness), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try{
-                    JSONObject json_response = response.getJSONObject("response");
-                    boolean success = json_response.getBoolean("success");
-                    if(success){
-                        Button [] button_id = {Percent0, Percent25, Percent50, Percent75, Percent100};
-                        for(int i = 0; i < button_id.length; i++){
-                            button_id[i].setEnabled(true);
-                        }
-
-                        button.setBackgroundColor(getResources().getColor(R.color.lineColor));
-                        button.setTextColor(getResources().getColor(R.color.white));
-                        button.setEnabled(false);
-                    }
-//                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-
-                }catch(JSONException e){
-
-                }
-
-                api_dialog.dismiss();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                api_dialog.dismiss();
-            }
-        })      // https://stackoverflow.com/questions/6330260/finish-all-previous-activities
-                .setRetryPolicy(new DefaultRetryPolicy(
-                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 4,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        LSingleton.getInstance(context).addToRequestQueue(request);
-    }
+//    private void brightnessRequest(String url, HashMap json_brightness, final Button button){
+//        //dialog box for loading
+//        final ProgressDialog api_dialog = new ProgressDialog(this);
+//        api_dialog.setMessage(getString(R.string.api_wait));
+//        api_dialog.show();
+//
+//        JsonObjectRequest request = (JsonObjectRequest) new JsonObjectRequest(Request.Method.POST, url, new JSONObject(json_brightness), new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try{
+//                    JSONObject json_response = response.getJSONObject("response");
+//                    boolean success = json_response.getBoolean("success");
+//                    if(success){
+//                        Button [] button_id = {Percent0, Percent25, Percent50, Percent75, Percent100};
+//                        for(int i = 0; i < button_id.length; i++){
+//                            button_id[i].setEnabled(true);
+//                        }
+//
+//                        button.setBackgroundColor(getResources().getColor(R.color.lineColor));
+//                        button.setTextColor(getResources().getColor(R.color.white));
+//                        button.setEnabled(false);
+//                    }
+////                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+//
+//                }catch(JSONException e){
+//
+//                }
+//
+//                api_dialog.dismiss();
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                api_dialog.dismiss();
+//            }
+//        })      // https://stackoverflow.com/questions/6330260/finish-all-previous-activities
+//                .setRetryPolicy(new DefaultRetryPolicy(
+//                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 4,
+//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        LSingleton.getInstance(context).addToRequestQueue(request);
+//    }
 }
