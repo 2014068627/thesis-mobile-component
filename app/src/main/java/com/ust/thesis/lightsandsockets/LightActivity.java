@@ -54,7 +54,8 @@ public class LightActivity extends AppCompatActivity {
         WF.setArguments(bundle);
 
         switchGraphs();
-        lightBrightness();
+//        lightBrightness();
+        brightnessSlider();
         goBack();
     }
 
@@ -70,8 +71,7 @@ public class LightActivity extends AppCompatActivity {
         socket_id = bundle.getString("socket_id").charAt(0);
         brightness = bundle.getString("brightness");
 //        Toast.makeText(context, brightness + " " + socket_id, Toast.LENGTH_SHORT).show();
-//        setBrightnessButton(brightness);
-
+        slider.setProgress(Integer.parseInt(brightness));
         directToShowNV(showNV);
         setFragment(DF);
     }
@@ -117,9 +117,9 @@ public class LightActivity extends AppCompatActivity {
         });
     }
 
-    public void lightBrightness(){
-
-    }
+//    public void lightBrightness(){
+//
+//    }
 
     /**
      * function to go back to last activity
@@ -135,48 +135,75 @@ public class LightActivity extends AppCompatActivity {
     }
 
     /**
+     * http://abhiandroid.com/ui/seekbar
+     */
+    private void brightnessSlider(){
+        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressValue = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressValue = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+//                Toast.makeText(context, "value is "+ progressValue, Toast.LENGTH_SHORT).show();
+                String [] user_session = new LSession().getUserSession(context);
+                HashMap json_brightness = new HashMap();
+                json_brightness.put("brightness", String.valueOf(progressValue));
+                json_brightness.put("user_id", user_session[0]);
+                json_brightness.put("user_username", user_session[1]);
+
+                String url = getString(R.string.apiserver) + "api/powerboard/change_brightness";
+
+                brightnessRequest(url, json_brightness);
+            }
+        });
+    }
+
+
+    /**
      * function to request API from server
      */
-//    private void brightnessRequest(String url, HashMap json_brightness, final Button button){
-//        //dialog box for loading
-//        final ProgressDialog api_dialog = new ProgressDialog(this);
-//        api_dialog.setMessage(getString(R.string.api_wait));
-//        api_dialog.show();
-//
-//        JsonObjectRequest request = (JsonObjectRequest) new JsonObjectRequest(Request.Method.POST, url, new JSONObject(json_brightness), new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try{
-//                    JSONObject json_response = response.getJSONObject("response");
-//                    boolean success = json_response.getBoolean("success");
-//                    if(success){
-//                        Button [] button_id = {Percent0, Percent25, Percent50, Percent75, Percent100};
-//                        for(int i = 0; i < button_id.length; i++){
-//                            button_id[i].setEnabled(true);
-//                        }
-//
-//                        button.setBackgroundColor(getResources().getColor(R.color.lineColor));
-//                        button.setTextColor(getResources().getColor(R.color.white));
-//                        button.setEnabled(false);
-//                    }
-////                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-//
-//                }catch(JSONException e){
-//
-//                }
-//
-//                api_dialog.dismiss();
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                api_dialog.dismiss();
-//            }
-//        })      // https://stackoverflow.com/questions/6330260/finish-all-previous-activities
-//                .setRetryPolicy(new DefaultRetryPolicy(
-//                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 4,
-//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        LSingleton.getInstance(context).addToRequestQueue(request);
-//    }
+    private void brightnessRequest(String url, HashMap json_brightness){
+        //dialog box for loading
+        final ProgressDialog api_dialog = new ProgressDialog(this);
+        api_dialog.setMessage(getString(R.string.api_wait));
+        api_dialog.show();
+
+        JsonObjectRequest request = (JsonObjectRequest) new JsonObjectRequest(Request.Method.POST, url, new JSONObject(json_brightness), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try{
+                    JSONObject json_response = response.getJSONObject("response");
+                    boolean success = json_response.getBoolean("success");
+                    if(success){
+//                        Toast.makeText(context, "successful", Toast.LENGTH_SHORT).show();
+                    }
+//                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+
+                }catch(JSONException e){
+
+                }
+
+                api_dialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                api_dialog.dismiss();
+            }
+        })      // https://stackoverflow.com/questions/6330260/finish-all-previous-activities
+                .setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 4,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        LSingleton.getInstance(context).addToRequestQueue(request);
+    }
 }
