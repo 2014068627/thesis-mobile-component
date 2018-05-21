@@ -36,6 +36,7 @@ public class profileFragment extends Fragment{
     }
 
     Button changePassButton;
+    Button changeEmailButton;
     Button logoutButton;
     Button aboutButton;
     TextView profile_username;
@@ -56,6 +57,7 @@ public class profileFragment extends Fragment{
         profileRequest(url);
 
         changePassword(changePassButton);
+        changeEmail(changeEmailButton);
         aboutActivity(aboutButton);
         logoutUser(logoutButton);
         return view;
@@ -66,6 +68,7 @@ public class profileFragment extends Fragment{
      */
     public void initialize(View view){
         changePassButton = view.findViewById(R.id.changePassButton);
+        changeEmailButton = view.findViewById(R.id.changeEmailButton);
         logoutButton = view.findViewById(R.id.logoutButton);
         aboutButton = view.findViewById(R.id.aboutButton);
         profile_name = view.findViewById(R.id.profile_name);
@@ -86,6 +89,20 @@ public class profileFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(profileFragment.this.getActivity(), ChangePasswordActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", id);
+                bundle.putString("username", username);
+                myIntent.putExtras(bundle);
+                getActivity().startActivityForResult(myIntent, 301);
+            }
+        });
+    }
+
+    public void changeEmail(Button changePassButton){
+        changePassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(profileFragment.this.getActivity(), ChangeEmailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", id);
                 bundle.putString("username", username);

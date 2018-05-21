@@ -39,7 +39,8 @@
         <activity android:name=".LightActivity" />
         <activity android:name=".ShowLightNumericalValuesActivity" />
         <activity android:name=".ConfirmTokenActivity" />
-        <activity android:name=".ChangeForgottenPasswordActivity"></activity>
+        <activity android:name=".ChangeForgottenPasswordActivity" />
+        <activity android:name=".ChangeEmailActivity"></activity>
     </application>
 
 </manifest>
