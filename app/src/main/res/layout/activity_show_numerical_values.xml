@@ -114,14 +114,13 @@
     <ListView
         android:id="@+id/listViewNumerical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/border_activities"
         android:color="@color/maroon"
         android:divider="@color/maroon"
         android:dividerHeight="1dp"
-        android:inputType="textMultiLine"
+        android:layout_marginTop="215dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"></ListView>
 
