@@ -120,17 +120,6 @@
                 android:textColor="@color/peach"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent" />
-            <Button
-                android:id="@+id/logoutButton"
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:layout_marginTop="12dp"
-                android:background="#9c382d"
-                android:text="LOGOUT"
-                android:textColor="@color/peach"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
             <Button
                 android:id="@+id/aboutButton"
@@ -139,6 +128,18 @@
                 android:layout_marginTop="12dp"
                 android:background="#9c382d"
                 android:text="ABOUT"
+                android:textColor="@color/peach"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/switch1" />
+
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="12dp"
+                android:background="#9c382d"
+                android:text="LOGOUT"
                 android:textColor="@color/peach"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"

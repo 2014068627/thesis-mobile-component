@@ -26,7 +26,6 @@ import org.json.JSONObject;
 
 public class SocketActivity extends AppCompatActivity {
 
-    TextView socketNumber;
     Button weeklyButton;
     Button dailyButton;
     ImageButton refreshButton;
@@ -95,7 +94,6 @@ public class SocketActivity extends AppCompatActivity {
      * function to initialize design variables
      */
     private void initialize(){
-        socketNumber = findViewById(R.id.socket_number);
         scheduleButton = findViewById(R.id.scheduleButton);
         switch_socket = findViewById(R.id.switch1);
         refreshButton = findViewById(R.id.refreshButton);
@@ -109,7 +107,7 @@ public class SocketActivity extends AppCompatActivity {
         schedule = bundle.getBoolean("schedule");
         identifiedDevice.setText(bundle.getString("appliance"));
 
-        socketNumber.setText(socket);
+        identifiedDevice.setText(socket);
 
         //SET FRAGMENTS
         DF = new DailyGraphFragment();
@@ -214,12 +212,18 @@ public class SocketActivity extends AppCompatActivity {
                     if(success){
                         JSONObject json_socket = response.getJSONObject("socket");
                         String appliance = json_socket.getString("appliance");
-                        identifiedDevice.setText(appliance);
+                        if (appliance.equalsIgnoreCase("none")){
+                            identifiedDevice.setText(bundle.getString("socket"));
+                        }else{
+                            identifiedDevice.setText(appliance);
+                        }
                     }else{
+                        identifiedDevice.setText(bundle.getString("socket"));
                         Toast.makeText(context, "Something occured, Try again later.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    identifiedDevice.setText(bundle.getString("socket"));
                     Toast.makeText(context, "Something occured, Try again later!", Toast.LENGTH_SHORT).show();
                 }
                 api_dialog.dismiss();
@@ -227,6 +231,7 @@ public class SocketActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                identifiedDevice.setText(bundle.getString("socket"));
                 Toast.makeText(context , "ERROR!", Toast.LENGTH_SHORT).show();
                 api_dialog.dismiss();
             }
